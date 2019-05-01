@@ -1,0 +1,39 @@
+/*
+upload file dailog style file
+*/
+
+h{color:blue;border:#FF8080;}
+
+body{font-size:13px;padding:0;border:0;margin:0;overflow:hidden;}
+
+#main{overflow:hidden;height:426px;width:300px;}
+
+#Ddiv{border:1px solid #BBB;padding:5px;height:370;overflow:scroll;}
+#Ddiv p{margin:1px;padding:5px;border:1px solid #DDD;}
+#Ddiv img{height:2;width:0;background-color:#FF8F00;position:absolute;margin-top:-5;left:7;}
+#Ddiv b{float:right;font-weight:normal}
+#Ddiv span{margin-left:7;font-size:11px;color:#AAA}
+#Ddiv a{text-decoration:none;color:blue;}
+
+#debug{
+position:absolute;
+border:1px solid #BBB;
+border-top:0;
+padding:5px;
+height:170px;
+overflow:scroll;
+visibility:hidden;
+margin:0;
+/*width:100%;*/
+}
+#debug u{text-decoration:none;color:red;}
+#debug b{font-weight:normal;font-size:9px;color:#9090CC;}
+
+#func{position:absolute;top:-100;left:190;overflow:hidden;margin-top:-2;background-color:white;}
+
+.delrow{background-color:#FDD;}
+.uprow{background-color:#EEF;}
+
+#view{position:absolute;top:-1000;padding:5;border:1px solid #BBB;overflow:scroll;background-color:white;}
+#view img{border:1px solid #EEE;}
+#doview{float:right;color:blue;cursor:pointer;}

@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+body{
+padding:0;
+font-size:13px;
+border:0;
+margin:0;
+overflow:hidden;}
+div{padding:5px}
+pre{
+border:1px solid #BBB;
+padding:5;
+margin:0;
+height:370;
+overflow:scroll;
+ white-space:pre-wrap; /* css-3 */
+ white-space:-moz-pre-wrap; /* Mozilla, since 1999 */
+ white-space:-pre-wrap; /* Opera 4-6 */
+ white-space:-o-pre-wrap; /* Opera 7 */
+ word-wrap:break-word; /* Internet Explorer 5.5+ */
+}
+</style>
+</head>
+<body>
+<div>编辑内容代码</div>
+<pre id=pre></pre>
+<div align=right><input type=button onclick=hide() value=" 关闭 ">
+<script language=javascript>
+//Z.style.padding=(
+IE=navigator.appName.indexOf("Mi")!=-1
+//)?10:"4px"
+
+P=parent
+P.HTML=function(){
+pre.innerHTML=P.EW0.innerHTML.replace(/(<|&)/g,function(a){return a=='<'?"&lt;":"&#38;"})
+/*.replace(/(while|for|document|do|var|function|with|if|else|{|}|<)/g,function($0){
+return $0=="<"?"&lt;":"<font color=blue>"+$0+"</font>"
+})*/
+}
+P.HTML()
+function hide(){P.editMenus.M.style.top=-999}
+</script>

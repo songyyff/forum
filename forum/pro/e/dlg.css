@@ -1,0 +1,55 @@
+
+/*
+html edit dailog style file
+*/
+
+body{
+font-size:13px;
+padding:0;
+border:0;
+margin:0;
+overflow:hidden;
+}
+
+#TB{
+height:27px;
+}
+#TB a{text-decoration:none;}
+.tM{
+padding:5 10;
+border:1px solid #CCC;
+float:left;
+}
+.sM{
+padding:5 10;
+border:1px solid #CCC;
+border-bottom:1px solid #EEEEFE;
+background-color:#EEEEFE;
+float:left;
+color:blue;
+}
+
+.tS{
+padding:5 2;
+border-top:1px solid white;
+border-bottom:1px solid #CCC;
+float:left;
+}
+
+#Ddiv{
+border:1px solid #BBB;
+border-top:0;
+padding:10px;
+height:242;
+background-color:#EEEEFE;
+}
+#Ddiv span{margin-right:5px;}
+
+#Bdiv{
+padding:5px;
+text-align:right;
+}
+
+select{
+margin:10 0 0 10;
+}

@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script language=javascript>document.write("<link rel=stylesheet type=text/css href=../theme/"+parent.tTheme+"/hcar.css>")</script>
+<style>
+body,td,pre{
+font-size:13px;
+font-family:宋体,Arial;
+}
+<!--[if !IE]>-->
+pre{
+width:338px;
+height:158px;
+}
+<!--<![endif]-->
+</style>
+</head>
+<body bgColor="transparent">
+<pre id=p><b><a href=javascript:; onclick=U(0)>加朋友</a> <a href=javascript:; onclick=U(1)>发消息</a></b><a id=user target=_parent style=font-size:30px></a>
+<table width=100% cellspacing=0 cellpadding=2>
+<tr><td id=td><tr><td width=55>积分<td><td width=55>金币<td>
+<tr><td>发帖数<td><td>回复数<td>
+<tr><td>等级<td><td>阅读权<td>
+<tr><td>在线时间<td><td>最后访问<td>
+<tr><td>注册时间<td><td><a id=qq target=_blank><img src=../icons/de/qq.gif title=QQ></table>
+</pre>
+<div id=x></div>
+<script language=javascript>
+D=0
+parent.PL.N=function(h){if(D[0]!=h[0]){for(D=h,i=0,A=document.getElementsByTagName('td');a=A[i+=2];a.innerHTML=h[(i>>1)+2])
+A[14].innerHTML=(h[9]/60).toFixed(0)+"时"+h[9]%60+"分"
+user.innerHTML=h[1]
+user.href="../pro/userinfo.php?userid="+h[0]
+if(h[2])qq.href="http://wpa.qq.com/msgrd?V=1&Uin="+h[2]+"&Site=论坛&Menu=yes"
+qq.style.visibility=h[2]?"visible":"hidden"
+}}
+
+function U(i){if(i)parent.location="../pro/msgs.php?type=3&userid="+D[0];else window.open("../pro/getfrid.php?userid="+D[0],"def","height=200,width=300");return false}
+</script>

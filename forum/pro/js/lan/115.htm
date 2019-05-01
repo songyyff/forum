@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>CSS 2013.01</title>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+</head>
+<body>
+<script language=javascript>
+I=i=In=0
+ri=/\b(background(-(attachment|color|image|position|repeat))?|border(-(bottom|left|right|top))?(-(color|style|width))?|outline(-(color|style|width))?|color|direction|letter-spacing|line-height|text(-(align|decoration|indent|shadow|transform))?|unicode-bidi|white-space|word-spacing|font(-(family|size(-adjust)?|stretch|style|variant|weight))?|(margin|padding)(-(bottom|left|right|top))?|list-style(-(image|position|type))?|marker-offset|counter(-(increment|reset))?|quotes|height|width|(max|min)(-(height|width))?|bottom|clear|clip|cursor|display|float|left|overflow|position|right|top|vertical-align|visibility|z-index|orphans|widows|page-break(-(after|before|inside))?|border(-(collapse|spacing))?|caption-side|empty-cells|table-layout)\s*:|\b((no-)?(repeat(-x|-y)?|(open|close)-quote)|scroll|fixed|left|center|top |right|bottom|thin|medium|thick|none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|transparent|ltr|rtl|inherit|normal|justify|underline|overline|line-through|blink|capitalize|uppercase|lowercase|embed|bidi-override|nowrap|pre(-wrap|-line)?|italic|oblique|small-caps|bold|bolder|lighter|(xx-|x-)?small|medium|(xx-|x-)?large|smaller|larger|generic-family|icon|menu|message-box|(small-)?caption|status-bar|wider|narrower|(ultra-|extra-|semi-)?(condensed|expanded)|auto|disc|circle|square|decimal(-leading-zero)?|(lower-|upper-)?(roman|alpha|latin)|lower-greek|hebrew|armenian|georgian|cjk-ideographic|(hiragana|katakana)(-iroha)?|url|counter(s)?|attr|(sub)?section|both|rect|default|crosshair|pointer|move|(e|ne|nw|n|se|sw|s|w)-resize|text|wait|help|block|inline(-block|-table)?|list-item|run-in|compact|marker|table(-((row|header|footer|column)-group)?|row|column|cell|caption)?|visible|hidden|absolute|fixed|relative|static|baseline|sub|super|text-top|middle|text-bottom|collapse|always|avoid|separate|hide|show|automatic|rgba|rgb|hsl|hsla|red|blue|yellow|green|black|white|gray)\b\s*;?|;|#[\da-f]+|(-)?[\d\s\.]+(px|%|in|cm|mm|em|ex|pt|pc)?|\\*['"]|[{}]|\r\n|\r|\n|\/\x2a/g
+
+ro=/[#.]\s*\w+[\w_\d]*|:\s*(active|focus|hover|link|visited|lang|first-(child|letter|line)|before|after)\b|\b(a(bbr|cronym|ddress|pplet|rea|rticle|side|udio)|b|base(font)?|bdi|bdo|big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|command|datalist|dd|del|details|dfn|di[rv]|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frame|frameset|h[1-6]|head(er)?|hgroup|hr|html|i|iframe|img|input|ins|keygen|isindex|kbd|label|legend|li|link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video|xmp)\b|\\*['"]|{|\d+|\r\n|\r|\n|\/\x2a/g
+,
+rd=/\\*"|\r\n|\r|\n/g,
+rs=/\\*'|\r\n|\r|\n/g,
+rc=/\x2a\/|\r\n|\r|\n/g,
+g=[0,'i','u','b','s'];
+
+P=parent
+A=P.A
+C=P.C
+
+P.cvLan['s']=function(o){
+
+function e(s){return P.document.createTextNode(s)}
+function T(s,t){if(t){A(i,c=C(g[t]));A(c,e(s))}else A(i,e(s))}
+function L(){A(l,i=C('li'));if(++I&1)i.className="il"}
+
+var In=0,x,z,c,r,h,i,l,H,t,k,S=o.d.value
+A(o,i=C('a'))
+A(i,e("CSS"))
+P.iniCtag(o)
+A(o,l=C('ol'))
+if(P.IE)l.style.marginLeft=40
+A(l,i=C('li'))
+
+function Z(){return z=h.index+r.length}
+function q(R){k=h.index
+H=c=='"'?rd:c=="'"?rs:rc,x=c=='*'?'/':c
+for(H.lastIndex=Z();h=H.exec(S);){r=h[0]
+if(r.charAt(r.length-1)==x){if(r.length&1||x=='/'){T(S.substring(k,R.lastIndex=Z()),4)
+while(x=='/'){
+if((c=S.charAt(z++))=='\r'){L();if(S.charAt(z+1)=='\n')z++}
+else if(c=='\n')L()
+else{R.lastIndex=h.index=--z;r="";break}
+}return}}else{T(S.substring(k,k=h.index),4);k+=r.length;L()}}}
+function Q(){return(c=r.charAt(r.length-1))=='"'||c=="'"||c=='*'}
+
+for(z=0;h=ro.exec(S);Z()){r=h[0]
+if(z!=h.index)T(S.substring(z,h.index))
+if("\r\n".indexOf(r)>=0)L()
+else if(Q())q(ro)
+else if(r=='{'){T('{');In++
+for(ri.lastIndex=Z();h=ri.exec(S);Z()){r=h[0]
+if(z!=h.index)T(S.substring(z,h.index),1)
+if("\r\n".indexOf(r)>=0)L()
+else if(Q())q(ri)
+else if(r=='{'){
+In++;T('{')
+}else if(r=='}'){T('}')
+if(!--In){ro.lastIndex=h.index+1;break}
+}else T(r,r.charAt(r.length-1)==':'?2:0)
+}
+}else T(r,(c=r.charAt())==':'||c=='.'||c=='#'?2:3)
+}
+if(z!=S.length)T(S.substr(z))
+}
+</script>
+</body>
+</html>

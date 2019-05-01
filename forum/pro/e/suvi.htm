@@ -1,0 +1,106 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<script language=javascript>
+P=parent
+D=P.document
+B=D.body
+M=P.editMenus.V
+C=P.C
+A=P.A
+G=P.G
+
+N=n=num=curi=0
+surveyfirst="<p><a href=javascript:; onclick=delsurvey()>[删除调查]</a>调查说明</p>有效投票时间 <input type=text value=0 name=suvdate class=input30> (按天计算，0 表示无限制)<textarea rows=4 id=surveydesc name=suvdesc style=\"margin-top:5px;margin-bottom:5px;\"></textarea><input type=checkbox name=suvaftshow value=1>投票后显示投票结果<br><input type=checkbox name=suvismut>多选投票 至少选择数量 <input class=input30 name=minsuv  disabled value=1> 最多选择数量 <input class=input30 name=maxsuv  disabled value=0><p><a href=javascript:; onclick=delsuvi()>项目</a><a href=javascript:; onclick=delsuvall()>删除全部</a>调查项目 "
+
+X=G("suv")
+function ini(){
+X.insertBefore(x=C('div'),X.lastChild)
+x.innerHTML=surveyfirst
+N=x.childNodes
+N[8].onclick=function(){
+var o=this;f=o.nextSibling.nextSibling
+f.nextSibling.nextSibling.disabled= f.disabled=!o.checked
+if(o.checked)f.focus()
+}
+
+A(x,ul=C('ol'))
+P.eval("function getsuvitem(o){A(o,l=C('li'));return l}")
+a5()
+P.checksuv=check
+}
+ini()
+function a5(){
+for(k=0;k<5;k++){
+l=P.getsuvitem(ul)
+A(l,t=C('input'))
+t.name="suviname[]"
+t.onfocus=function(){curi=this.parentNode}
+t.style.width="100%"
+if(!k)t.focus()
+}
+n+=5
+num+=5
+}
+X.lastChild.firstChild.onclick=function(){if(num<100){if(n)a5();else ini()}return false}
+
+P.delsurvey=function(){
+if(confirm("您确定删除调查表吗？")){
+n=num=ul=newsurvey=P.checksuv=0
+x.innerHTML=""
+X.removeChild(x)
+}return false}
+
+P.delsuvall=function(){
+if(num<3){alert("项目数量只有2个了，不能再删除！");return}
+if(confirm("您确定删除全部调查项目吗？")){
+num=2
+var i=ul.childNodes[1]
+while(i.nextSibling)ul.removeChild(i.nextSibling)
+i.childNodes[0].focus()
+}return false}
+
+P.delsuvi=function(){
+if(num<3){alert("项目数量只有2个了，不能再删除！");return}
+if(!curi){alert("请选择需要删除的项目！");return}
+var i=curi
+curi=i.nextSibling?i.nextSibling:i.previousSibling
+ul.removeChild(i)
+curi.childNodes[0].focus()
+num--
+return false
+}
+
+
+function msnum(v){var x;if(x=!P.isnumber(v.value)){sc(v);alert("只能是数字!");v.focus();}return x;}
+function sc(o){P.centerWin(M,0);o.scrollIntoView(true)}
+
+function check(){//校验调查表
+if(msnum(N[2]))return 1
+var i=ul.childNodes[ul.childNodes.length-1]
+//过滤末尾空条目
+while(num>2&&!i.childNodes[0].value.length){
+i=i.previousSibling
+ul.removeChild(i.nextSibling)
+num--
+}
+if(num>100){sc(ul);alert("调查项目不能超过100条!");ul.focus();return 1}
+//检查条目为空
+i=ul.childNodes[0]
+do with(i.childNodes[0]){
+if(!value.length){sc(i);alert("调查项目不能为空!");focus();return 1}
+}while(i=i.nextSibling)
+
+//检测最大最小选择数量
+i=N[8]
+if(i.checked){
+i=N[10]
+if(msnum(i))return 1
+t=parseInt(i.value)
+if(!t||t>num-1){sc(i);alert("至少选择数量范围在 1 至 "+(num-1)+" 之间!");i.focus();return 1}
+u=parseInt((i=N[12]).value)
+if(msnum(i))return 1
+if(u&&(t>u||u>num)){sc(i);alert("最多选择数量范围在 "+t+" 至 "+num+" 之间，或者为 0 !");i.focus();return 1}
+}
+return 0
+}
+</script>

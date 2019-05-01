@@ -1,0 +1,770 @@
+-- MySQL dump 10.10
+--
+-- Host: localhost    Database: install_forum_dbname
+-- ------------------------------------------------------
+-- Server version	5.0.22-community-nt
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `install_forum_dbname`
+--
+
+/*!40000 DROP DATABASE IF EXISTS `install_forum_dbname`*/;
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `install_forum_dbname` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `install_forum_dbname`;
+
+--
+-- Table structure for table `bgs`
+--
+
+DROP TABLE IF EXISTS `bgs`;
+CREATE TABLE `bgs` (
+  `id` int(11) NOT NULL auto_increment,
+  `uid` int(11) NOT NULL default '0' COMMENT '用户id',
+  `mid` int(11) default '0' COMMENT '颁奖人id',
+  `bg` varchar(50) default NULL COMMENT '徽章文件',
+  `s` int(11) NOT NULL default '0' COMMENT '排序号',
+  `r` int(4) NOT NULL default '0' COMMENT '权限 0正常显示 1位 用户自己不显示 2位 管理员不显示',
+  `n` varchar(300) default '' COMMENT '徽章名称',
+  `q` blob COMMENT '授奖贺词',
+  `a` blob COMMENT '获奖感言',
+  `t` datetime default NULL COMMENT '获奖时间',
+  PRIMARY KEY  (`id`),
+  KEY `uid` (`uid`,`bg`),
+  KEY `us` (`uid`,`s`),
+  KEY `ho` USING BTREE (`uid`,`r`,`s`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='用户徽章表';
+
+--
+-- Dumping data for table `bgs`
+--
+
+
+/*!40000 ALTER TABLE `bgs` DISABLE KEYS */;
+LOCK TABLES `bgs` WRITE;
+INSERT INTO `bgs` VALUES (1,0,NULL,'1',1,0,'初出茅庐','论坛注册用户都可获得此勋章',NULL,'2014-12-08 16:23:09'),(2,0,NULL,'2',2,0,'坛花徽章','论坛才女、佳人可获得此徽章',NULL,'2014-12-08 16:23:09'),(3,0,NULL,'3',3,0,'坛草徽章','论坛才子、帅哥可获得此徽章',NULL,'2014-12-08 16:23:09'),(4,0,NULL,'4',4,0,'管理员徽章','凡论坛管理可获得此徽章',NULL,'2014-12-08 16:23:09'),(5,0,NULL,'5',5,0,'大拇指徽章','论坛内有一定威望、声誉、口碑好的用户可获得此徽章',NULL,'2014-12-08 16:23:09'),(7,0,NULL,'7',7,0,'一马当先','经常抢到沙发者可获此徽章',NULL,'2014-12-08 16:23:09'),(8,0,NULL,'8',8,0,'鼎鼎大名','论坛内很高威望，朋友众多的用户可获此徽章',NULL,'2014-12-08 16:23:09'),(9,0,NULL,'9',9,0,'浮云徽章','管理员爱发给谁发给谁，只因为神马都是浮云',NULL,'2014-12-08 16:23:09'),(10,0,NULL,'10',10,0,'孔孟在世','发表的帖子有10个帖子回复超过500人的可获得此徽章&#10;孔子坐下弟子三千，孟子家有门客三千。表示用户人气鼎盛',NULL,'2014-12-08 16:23:09'),(11,0,NULL,'11',11,0,'斗酒百坛','回复数量庞大的用户可获此徽章&#10;到底怎么个庞大，管理员自己看着办。',NULL,'2014-12-08 16:23:09'),(12,0,NULL,'12',12,0,'浓墨重彩','用户发表的帖子有内容，有思想，有文彩。并且字数还不少。总之一个字“好文章”。可获此徽章',NULL,'2014-12-08 16:23:09'),(13,0,NULL,'13',13,0,'余音绕梁','经常发表音乐，歌曲，视频的用户可获此徽章',NULL,'2014-12-08 16:23:09'),(14,0,NULL,'14',14,0,'神仙美&quot;卷&quot;','经常发表美图者，可获此徽章',NULL,'2014-12-08 16:23:09'),(15,0,NULL,'15',15,0,'七步成诗','在论坛内吟诗作对者可获此徽章',NULL,'2014-12-08 16:23:09'),(16,0,NULL,'16',16,0,'博学多才','帖子写得出口成章、条理清楚、引经据典者可获此徽章',NULL,'2014-12-08 16:23:09'),(17,0,NULL,'17',17,0,'金榜提名','帖子被置顶、精华、高亮者可获此徽章',NULL,'2014-12-08 16:23:09'),(6,0,NULL,'6',6,0,'狐言魅语','说话充满机巧、逗趣者可获此徽章',NULL,'2014-12-08 16:23:09'),(18,1,1,'1',1,0,'初出茅庐',NULL,NULL,'2014-12-08 16:23:09'),(19,1,1,'4',2,0,'管理员徽章',NULL,NULL,'2014-12-08 16:23:09');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `bgs` ENABLE KEYS */;
+
+--
+-- Table structure for table `msg`
+--
+
+DROP TABLE IF EXISTS `msg`;
+CREATE TABLE `msg` (
+  `id` int(11) NOT NULL auto_increment,
+  `uid` int(11) default NULL COMMENT '消息所有人ID',
+  `fid` int(11) default NULL COMMENT '发送人ID',
+  `mid` int(11) default NULL COMMENT '消息ID',
+  `rtime` datetime default NULL COMMENT '阅读时间',
+  `rd` int(1) default '0' COMMENT '0未读；1已读',
+  `type` int(1) NOT NULL default '0' COMMENT '0接受的消息；1发送的消息；2删除消息',
+  PRIMARY KEY  (`id`),
+  KEY `uid` (`uid`),
+  KEY `msg` USING BTREE (`uid`,`type`,`rd`,`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='站内消息';
+
+--
+-- Dumping data for table `msg`
+--
+
+
+/*!40000 ALTER TABLE `msg` DISABLE KEYS */;
+LOCK TABLES `msg` WRITE;
+INSERT INTO `msg` VALUES (1,1,0,1,NULL,0,0);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `msg` ENABLE KEYS */;
+
+--
+-- Table structure for table `msgs`
+--
+
+DROP TABLE IF EXISTS `msgs`;
+CREATE TABLE `msgs` (
+  `bid` int(11) NOT NULL auto_increment,
+  `tos` blob COMMENT '消息接收人',
+  `til` blob COMMENT '消息标题',
+  `body` blob COMMENT '消息内容',
+  `time` datetime default NULL COMMENT '创建时间',
+  `ref` int(11) default NULL COMMENT '引用数量',
+  PRIMARY KEY  (`bid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='消息体';
+
+--
+-- Dumping data for table `msgs`
+--
+
+
+/*!40000 ALTER TABLE `msgs` DISABLE KEYS */;
+LOCK TABLES `msgs` WRITE;
+INSERT INTO `msgs` VALUES (1,'众言论坛系统','众言论坛系统消息！','\n\n祝贺您成功安装论坛系统！\n\n您是本论坛的超级管理员，请您配置好论坛设置，使论坛正常运转是您的责任。\n\n论坛配置指南可查阅安装包中的 INSTALL.txt 文件。\n\n','2014-12-08 16:23:09',1);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `msgs` ENABLE KEYS */;
+
+--
+-- Table structure for table `suvi`
+--
+
+DROP TABLE IF EXISTS `suvi`;
+CREATE TABLE `suvi` (
+  `id` int(11) NOT NULL auto_increment,
+  `sid` int(11) NOT NULL default '0' COMMENT '调查ID',
+  `sort` int(11) NOT NULL default '0' COMMENT '排序',
+  `time` datetime default NULL COMMENT '建立时间',
+  `item` varchar(1200) default NULL COMMENT '调查条目',
+  `num` int(11) NOT NULL default '0' COMMENT '被选择数量',
+  PRIMARY KEY  (`id`),
+  KEY `s` USING BTREE (`sid`,`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='调查表条目';
+
+--
+-- Dumping data for table `suvi`
+--
+
+
+/*!40000 ALTER TABLE `suvi` DISABLE KEYS */;
+LOCK TABLES `suvi` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `suvi` ENABLE KEYS */;
+
+--
+-- Table structure for table `suvu`
+--
+
+DROP TABLE IF EXISTS `suvu`;
+CREATE TABLE `suvu` (
+  `type` int(1) NOT NULL default '0' COMMENT '类型 1 调查表记录 / 0 调查条目记录',
+  `ids` int(11) NOT NULL default '0' COMMENT '调查表id/调查条目id',
+  `uid` int(11) NOT NULL default '0' COMMENT '用户id',
+  UNIQUE KEY `type` (`type`,`ids`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户选择记录';
+
+--
+-- Dumping data for table `suvu`
+--
+
+
+/*!40000 ALTER TABLE `suvu` DISABLE KEYS */;
+LOCK TABLES `suvu` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `suvu` ENABLE KEYS */;
+
+--
+-- Table structure for table `suvy`
+--
+
+DROP TABLE IF EXISTS `suvy`;
+CREATE TABLE `suvy` (
+  `id` int(11) NOT NULL auto_increment,
+  `iid` int(11) NOT NULL default '0' COMMENT '所属帖子id',
+  `des` mediumtext COMMENT '调查说明',
+  `numi` int(4) NOT NULL default '0' COMMENT '调查项目数量',
+  `num` int(4) NOT NULL default '0' COMMENT '总投票人数',
+  `inu` int(11) NOT NULL default '0' COMMENT '总投票数量',
+  `imax` int(11) NOT NULL default '0' COMMENT '获得投票最多的条目的投票数',
+  `min` int(2) NOT NULL default '0' COMMENT '最少选择数',
+  `max` int(2) NOT NULL default '0' COMMENT '最多选择数量',
+  `time` datetime default NULL COMMENT '调查建立时间',
+  `peri` int(4) NOT NULL default '0' COMMENT '有效调查时间，天数',
+  `data` int(6) NOT NULL default '0' COMMENT '标记数据 1位 0投票后显示结果',
+  PRIMARY KEY  (`id`),
+  KEY `s` (`iid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='调查';
+
+--
+-- Dumping data for table `suvy`
+--
+
+
+/*!40000 ALTER TABLE `suvy` DISABLE KEYS */;
+LOCK TABLES `suvy` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `suvy` ENABLE KEYS */;
+
+--
+-- Table structure for table `tdict`
+--
+
+DROP TABLE IF EXISTS `tdict`;
+CREATE TABLE `tdict` (
+  `id` int(11) NOT NULL auto_increment,
+  `type` int(11) default '0' COMMENT '类型',
+  `key1` int(11) default '0' COMMENT '键值',
+  `key2` int(11) default '0' COMMENT '数值2',
+  `ikey` varchar(255) default NULL COMMENT '数据键',
+  `info` varchar(3000) default '' COMMENT '数据',
+  `info2` varchar(3000) default '' COMMENT '数据2',
+  `ctime` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT '建立和修改时间',
+  PRIMARY KEY  (`id`),
+  KEY `typekey` (`type`,`key1`),
+  KEY `k2` (`type`,`key2`),
+  KEY `ki` (`type`,`ikey`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='数据字典';
+
+--
+-- Dumping data for table `tdict`
+--
+
+
+/*!40000 ALTER TABLE `tdict` DISABLE KEYS */;
+LOCK TABLES `tdict` WRITE;
+INSERT INTO `tdict` VALUES (1,0,1,NULL,NULL,'论坛系统用户头像','0','2014-12-08 08:23:09'),(2,1,29,NULL,NULL,'sys/9.gif','happy','2014-12-08 08:23:09'),(3,1,33,NULL,NULL,'sys/8.gif','小猪','2014-12-08 08:23:09'),(4,1,3,NULL,NULL,'sys/7.gif','浇水','2014-12-08 08:23:09'),(5,1,34,NULL,NULL,'sys/6.gif','魔兔','2014-12-08 08:23:09'),(6,1,37,NULL,NULL,'sys/5.gif','太阳','2014-12-08 08:23:09'),(7,1,40,NULL,NULL,'sys/51.gif','花','2014-12-08 08:23:09'),(8,1,7,NULL,NULL,'sys/50.gif','可爱','2014-12-08 08:23:09'),(9,1,42,NULL,NULL,'sys/4.gif','love心','2014-12-08 08:23:09'),(10,1,43,NULL,NULL,'sys/49.gif','糖果','2014-12-08 08:23:09'),(11,1,8,NULL,NULL,'sys/48.gif','大眼儿','2014-12-08 08:23:09'),(12,1,9,NULL,NULL,'sys/47.gif','困','2014-12-08 08:23:09'),(13,1,44,NULL,NULL,'sys/46.gif','兔','2014-12-08 08:23:09'),(14,1,19,NULL,NULL,'sys/45.gif','大象','2014-12-08 08:23:09'),(15,1,20,NULL,NULL,'sys/44.gif','熊猫','2014-12-08 08:23:09'),(16,1,13,NULL,NULL,'sys/43.gif','哎','2014-12-08 08:23:09'),(17,1,21,NULL,NULL,'sys/42.gif','波板糖','2014-12-08 08:23:09'),(18,1,22,NULL,NULL,'sys/41.gif','小熊','2014-12-08 08:23:09'),(19,1,1,NULL,NULL,'sys/40.gif','波波头','2014-12-08 08:23:09'),(20,1,23,NULL,NULL,'sys/3.gif','龙猫','2014-12-08 08:23:09'),(21,1,24,NULL,NULL,'sys/39.gif','心','2014-12-08 08:23:09'),(22,1,25,NULL,NULL,'sys/38.gif','blue','2014-12-08 08:23:09'),(23,1,26,NULL,NULL,'sys/37.gif','手绘','2014-12-08 08:23:09'),(24,1,10,NULL,NULL,'sys/36.gif','幻想','2014-12-08 08:23:09'),(25,1,11,NULL,NULL,'sys/35.gif','睡觉','2014-12-08 08:23:09'),(26,1,27,NULL,NULL,'sys/34.gif','love','2014-12-08 08:23:09'),(27,1,12,NULL,NULL,'sys/33.gif','歌唱','2014-12-08 08:23:09'),(28,1,28,NULL,NULL,'sys/32.gif','幻','2014-12-08 08:23:09'),(29,1,30,NULL,NULL,'sys/31.gif','喵喵','2014-12-08 08:23:09'),(30,1,14,NULL,NULL,'sys/30.gif','青春','2014-12-08 08:23:09'),(31,1,31,NULL,NULL,'sys/29.gif','韩国心','2014-12-08 08:23:09'),(32,1,15,NULL,NULL,'sys/28.gif','神秘','2014-12-08 08:23:09'),(33,1,32,NULL,NULL,'sys/27.gif','卡通人','2014-12-08 08:23:09'),(34,1,16,NULL,NULL,'sys/26.gif','宠物','2014-12-08 08:23:09'),(35,1,35,NULL,NULL,'sys/25.gif','魔法女','2014-12-08 08:23:09'),(36,1,36,NULL,NULL,'sys/24.gif','奶牛沙发','2014-12-08 08:23:09'),(37,1,38,NULL,NULL,'sys/23.gif','下午茶','2014-12-08 08:23:09'),(38,1,39,NULL,NULL,'sys/22.gif','苹果熊','2014-12-08 08:23:09'),(39,1,41,NULL,NULL,'sys/21.gif','羊','2014-12-08 08:23:09'),(40,1,18,NULL,NULL,'sys/20.gif','蜜蜂人','2014-12-08 08:23:09'),(41,1,45,NULL,NULL,'sys/1.gif','彩色','2014-12-08 08:23:09'),(42,1,46,NULL,NULL,'sys/19.gif','发型猫','2014-12-08 08:23:09'),(43,1,47,NULL,NULL,'sys/18.gif','香蕉猴','2014-12-08 08:23:09'),(44,1,48,NULL,NULL,'sys/17.gif','花兔','2014-12-08 08:23:09'),(45,1,17,NULL,NULL,'sys/16.gif','眼镜妹','2014-12-08 08:23:09'),(46,1,49,NULL,NULL,'sys/15.gif','心情','2014-12-08 08:23:09'),(47,1,2,NULL,NULL,'sys/14.gif','金头发','2014-12-08 08:23:09'),(48,1,50,NULL,NULL,'sys/13.gif','圣诞雪人','2014-12-08 08:23:09'),(49,1,4,NULL,NULL,'sys/12.gif','哭啼','2014-12-08 08:23:09'),(50,1,5,NULL,NULL,'sys/11.gif','哈哈','2014-12-08 08:23:09'),(51,1,6,NULL,NULL,'sys/10.gif','love','2014-12-08 08:23:09'),(52,1,51,NULL,NULL,'sys/2.gif','蜜蜂','2014-12-08 08:23:09'),(53,0,2,NULL,NULL,'论坛徽章','','2014-12-08 08:23:09'),(54,0,3,NULL,NULL,'论坛表情类别','7','2014-12-08 08:23:09'),(55,16,0,2,NULL,'6.gif','害羞','2014-12-08 08:23:09'),(56,16,0,1,NULL,'b.gif','调皮','2014-12-08 08:23:09'),(57,16,0,3,NULL,'2.gif','鼻血','2014-12-08 08:23:09'),(58,16,0,4,NULL,'8.gif','大笑','2014-12-08 08:23:09'),(59,16,0,5,NULL,'a.gif','摩登','2014-12-08 08:23:09'),(60,16,0,21,NULL,'5.gif','恶魔','2014-12-08 08:23:09'),(61,16,0,7,NULL,'o.gif','偷笑','2014-12-08 08:23:09'),(62,16,0,20,NULL,'7.gif','奸笑','2014-12-08 08:23:09'),(63,16,0,22,NULL,'3.gif','炸弹','2014-12-08 08:23:09'),(64,16,0,9,NULL,'9.gif','哭泣','2014-12-08 08:23:09'),(65,16,0,15,NULL,'4.gif','狂喷','2014-12-08 08:23:09'),(66,16,0,14,NULL,'1.gif','火大','2014-12-08 08:23:09'),(67,16,0,16,NULL,'c.gif','害怕','2014-12-08 08:23:09'),(68,16,0,18,NULL,'d.gif','酣睡','2014-12-08 08:23:09'),(69,16,0,17,NULL,'e.gif','憔悴','2014-12-08 08:23:09'),(70,16,0,13,NULL,'f.gif','惊讶','2014-12-08 08:23:09'),(71,16,0,19,NULL,'g.gif','洗澡','2014-12-08 08:23:09'),(72,16,0,8,NULL,'h.gif','头晕','2014-12-08 08:23:09'),(73,16,0,6,NULL,'i.gif','梦幻','2014-12-08 08:23:09'),(74,16,0,12,NULL,'j.gif','流汗','2014-12-08 08:23:09'),(75,16,0,11,NULL,'k.gif','蒙面','2014-12-08 08:23:09'),(76,16,0,10,NULL,'l.gif','发呆','2014-12-08 08:23:09'),(77,16,0,23,NULL,'m.gif','被炸','2014-12-08 08:23:09'),(78,16,0,24,NULL,'n.gif','受伤','2014-12-08 08:23:09'),(79,0,4,NULL,NULL,'界面风格',NULL,'2014-12-08 08:23:09'),(80,4,0,NULL,NULL,'blue1','兰色幻想(默认风格)','2014-12-08 08:23:09'),(81,4,1,NULL,NULL,'gray','灰色调','2014-12-08 08:23:09'),(82,0,5,NULL,NULL,'论坛等级',NULL,'2014-12-08 08:23:09'),(83,5,1,NULL,NULL,'普通',NULL,'2014-12-08 08:23:09'),(84,5,3,NULL,NULL,'青铜',NULL,'2014-12-08 08:23:09'),(85,5,4,NULL,NULL,'白银',NULL,'2014-12-08 08:23:09'),(86,5,5,NULL,NULL,'黄金',NULL,'2014-12-08 08:23:09'),(87,5,6,NULL,NULL,'钻石',NULL,'2014-12-08 08:23:09'),(88,5,2,NULL,NULL,'铉铁',NULL,'2014-12-08 08:23:09'),(89,0,6,NULL,NULL,'帖子状态',NULL,'2014-12-08 08:23:09'),(90,6,0,NULL,NULL,'有效','E','2014-12-08 08:23:09'),(91,6,1,NULL,NULL,'无效','D','2014-12-08 08:23:09'),(92,0,7,NULL,NULL,'帖子类型',NULL,'2014-12-08 08:23:09'),(93,7,1,NULL,NULL,'普通',NULL,'2014-12-08 08:23:09'),(94,8,1,NULL,NULL,'普通',NULL,'2014-12-08 08:23:09'),(95,7,2,NULL,NULL,'置顶',NULL,'2014-12-08 08:23:09'),(96,0,8,NULL,NULL,'帖子修饰',NULL,'2014-12-08 08:23:09'),(97,8,2,NULL,NULL,'精品',NULL,'2014-12-08 08:23:09'),(98,8,3,NULL,NULL,'加亮',NULL,'2014-12-08 08:23:09'),(99,0,9,NULL,NULL,'论坛状态',NULL,'2014-12-08 08:23:09'),(100,0,11,NULL,NULL,'数据库安装信息',NULL,'2014-12-08 08:23:09'),(101,9,1,NULL,NULL,'D','无效','2014-12-08 08:23:09'),(102,0,10,NULL,NULL,'需要特殊处理的上传附件文件扩展名类型，0有安全问题的，1特殊视频类型',NULL,'2014-12-08 08:23:09'),(103,10,0,NULL,NULL,'.php.phps.phtml.html.htm.cgi.asp.aspx.shtml.shtm.jsp.swf.rm.','.txt','2014-12-08 08:23:09'),(104,9,0,NULL,NULL,'E','有效','2014-12-08 08:23:09'),(105,10,0,NULL,'php','application/php','.txt','2014-12-08 08:23:09'),(258,10,0,NULL,'cgi','application/cgi','.txt','2014-12-08 08:23:09'),(106,0,12,NULL,NULL,'Email系统设置',NULL,'2014-12-08 08:23:09'),(107,12,0,NULL,NULL,'Host',NULL,'2014-12-08 08:23:09'),(108,12,2,NULL,NULL,'SendNeedAcount',NULL,'2014-12-08 08:23:09'),(109,12,3,NULL,NULL,'Acount',NULL,'2014-12-08 08:23:09'),(110,12,4,NULL,NULL,'Pass',NULL,'2014-12-08 08:23:09'),(111,12,6,NULL,NULL,'superMailAdd',NULL,'2014-12-08 08:23:09'),(112,12,5,NULL,NULL,'superName','众言论坛邮件发送员','2014-12-08 08:23:09'),(113,12,7,NULL,NULL,'CharSet','utf-8','2014-12-08 08:23:09'),(114,12,1,NULL,NULL,'Port','25','2014-12-08 08:23:09'),(115,12,8,NULL,NULL,'language','gb','2014-12-08 08:23:09'),(116,11,0,NULL,'version','2011.1','','2014-12-08 08:23:09'),(117,11,1,NULL,'datetime','2011-02-22 10:07:23','','2014-12-08 08:23:09'),(118,0,13,NULL,NULL,'论坛信息',NULL,'2014-12-08 08:23:09'),(119,13,0,NULL,'version',NULL,NULL,'2014-12-08 08:23:09'),(120,13,1,NULL,'name','众言论坛',NULL,'2014-12-08 08:23:09'),(121,13,3,NULL,'comment','一个汇聚众言的平台。',NULL,'2014-12-08 08:23:09'),(122,13,4,NULL,'datetime',NULL,NULL,'2014-12-08 08:23:09'),(123,13,5,NULL,'address',NULL,NULL,'2014-12-08 08:23:09'),(124,13,6,NULL,'postno',NULL,NULL,'2014-12-08 08:23:09'),(125,13,7,NULL,'phone',NULL,NULL,'2014-12-08 08:23:09'),(126,13,8,NULL,'email',NULL,NULL,'2014-12-08 08:23:09'),(127,13,9,NULL,'http',NULL,NULL,'2014-12-08 08:23:09'),(128,13,10,NULL,'QQ',NULL,NULL,'2014-12-08 08:23:09'),(129,13,11,NULL,'fax',NULL,NULL,'2014-12-08 08:23:09'),(130,13,12,NULL,'techmail',NULL,NULL,'2014-12-08 08:23:09'),(131,13,13,NULL,'servicemail',NULL,NULL,'2014-12-08 08:23:09'),(132,13,14,NULL,'mailfoot','----------------------\n众言论坛\n----------------------\n论坛地址：[url]http://www.yourdoman.com[/url]\n邮件地址：[email]admin@yourdoman.com[/email]',NULL,'2014-12-08 08:23:09'),(133,13,15,NULL,'footmode','0',NULL,'2014-12-08 08:23:09'),(134,13,16,NULL,'mailrealfoot','----------------------\n众言论坛\n----------------------',NULL,'2014-12-08 08:23:09'),(191,14,0,NULL,'noitemviewright',NULL,'您无权访问该贴','2014-12-08 08:23:09'),(186,14,0,NULL,'nogroupuserview',NULL,'您没有论坛用户查看权','2014-12-08 08:23:09'),(188,14,0,NULL,'norightnewitem',NULL,'您无权发布新贴','2014-12-08 08:23:09'),(189,14,0,NULL,'norightnewreplay',NULL,'您无权发布新回复','2014-12-08 08:23:09'),(187,14,0,NULL,'noitemuserview',NULL,'您没有帖子用户查看权','2014-12-08 08:23:09'),(185,14,0,NULL,'nouserview',NULL,'您没有用户查看权','2014-12-08 08:23:09'),(183,14,0,NULL,'havenoreplay',NULL,'访问回复不存在','2014-12-08 08:23:09'),(182,14,0,NULL,'havenoitem',NULL,'访问帖子不存在','2014-12-08 08:23:09'),(178,14,0,NULL,'urlerror',NULL,'地址传递参数错误','2014-12-08 08:23:09'),(181,14,0,NULL,'havenoforum',NULL,'访问论坛不存在','2014-12-08 08:23:09'),(184,14,0,NULL,'norightview',NULL,'您无权访问该页','2014-12-08 08:23:09'),(179,14,0,NULL,'urlneedvar',NULL,'地址传递参数不完整','2014-12-08 08:23:09'),(180,14,0,NULL,'norightforaction',NULL,'您无权做此操作','2014-12-08 08:23:09'),(177,14,0,NULL,'unknow',NULL,'未知错误','2014-12-08 08:23:09'),(174,2,0,NULL,NULL,'超级管理员添加徽章计数',NULL,'2014-12-08 08:23:09'),(176,14,0,NULL,'userdisabled',NULL,'此帐户被管理员失效，帐号无法使用！','2014-12-08 08:23:09'),(175,0,14,NULL,NULL,'论坛错误消息',NULL,'2014-12-08 08:23:09'),(192,14,0,NULL,'nogroupviewright',NULL,'您无权访问该论坛','2014-12-08 08:23:09'),(193,14,0,NULL,'nomodifyitemright',NULL,'您无权修改该贴','2014-12-08 08:23:09'),(194,14,0,NULL,'nomodifyreplayright',NULL,'您无权修改该回复','2014-12-08 08:23:09'),(195,14,0,NULL,'nologin',NULL,'您未登陆,无权做此操作，请先登陆论坛','2014-12-08 08:23:09'),(196,14,0,NULL,'replayclosed',NULL,'该回复被关闭','2014-12-08 08:23:09'),(197,14,0,NULL,'itemclosed',NULL,'该贴被关闭','2014-12-08 08:23:09'),(198,14,0,NULL,'groupclosed',NULL,'论坛被关闭','2014-12-08 08:23:09'),(199,14,0,NULL,'groupnoview',NULL,'论坛关闭了浏览权。','2014-12-08 08:23:09'),(200,14,0,NULL,'grouplevelhigh',NULL,'论坛等级过高，您无权进入','2014-12-08 08:23:09'),(201,14,0,NULL,'readrighthigh',NULL,'帖子阅读权限等级过高，您无权查阅或回复','2014-12-08 08:23:09'),(202,14,0,NULL,'nouser',NULL,'此用户不存在','2014-12-08 08:23:09'),(203,14,0,NULL,'msgtoself',NULL,'您不能向自己发送消息','2014-12-08 08:23:09'),(204,14,0,NULL,'notyourmsg',NULL,'您不能回复不属于您的消息','2014-12-08 08:23:09'),(205,14,0,NULL,'notmng',NULL,'您不是论坛管理员，无权访问此操作','2014-12-08 08:23:09'),(206,14,0,NULL,'notgmng',NULL,'您不是此论坛管理员，无权做此操作','2014-12-08 08:23:09'),(207,14,0,NULL,'nouserreplay',NULL,'没有用户回复权，无法回复。','2014-12-08 08:23:09'),(208,14,0,NULL,'nogroupreplay',NULL,'论坛回复功能被关闭，无法回复。','2014-12-08 08:23:09'),(209,14,0,NULL,'noitemreplay',NULL,'帖子被用户关闭回复，无法回复。','2014-12-08 08:23:09'),(210,14,0,NULL,'noitemspreplay',NULL,'帖子被管理员关闭回复，无法回复。','2014-12-08 08:23:09'),(211,14,0,NULL,'novoteright',NULL,'您还没有投票权，不能投票。','2014-12-08 08:23:09'),(212,14,0,NULL,'noright',NULL,'没有权限。','2014-12-08 08:23:09'),(220,15,0,0,NULL,'最后生成搜索论坛树时间','0','2014-12-08 08:23:09'),(217,14,0,NULL,'groupnonew',NULL,'论坛关闭了发帖权。','2014-12-08 08:23:09'),(215,14,0,NULL,'rplitemdeled',NULL,'您回复的帖子已经被删除，无法发表回复了。T_T','2014-12-08 08:23:09'),(213,14,0,NULL,'illegalrpy',NULL,'回复非法。','2014-12-08 08:23:09'),(219,0,15,NULL,NULL,'其它杂项设置',NULL,'2014-12-08 08:23:09'),(216,14,0,NULL,'illegalnewi',NULL,'新帖标题和内容都不能空。','2014-12-08 08:23:09'),(214,14,0,NULL,'rpynothingrpy',NULL,'回复没有任何内容。','2014-12-08 08:23:09'),(221,3,0,2,NULL,'橘子头','0','2014-12-08 08:23:09'),(247,10,1,NULL,'mov','video/quicktime','','2014-12-08 08:23:09'),(248,10,1,NULL,'flv','v/flv',NULL,'2014-12-08 08:23:09'),(249,10,0,NULL,'html','text/html','.txt','2014-12-08 08:23:09'),(250,10,1,NULL,'qt','video/quicktime',NULL,'2014-12-08 08:23:09'),(251,10,2,NULL,'txt','text/plain',NULL,'2014-12-08 08:23:09'),(312,10,0,NULL,'f4v','v/flv',NULL,'2014-12-08 08:23:09'),(252,10,0,NULL,'phps','application/phps','.txt','2014-12-08 08:23:09'),(253,10,0,NULL,'htm','text/html','.txt','2014-12-08 08:23:09'),(254,10,0,NULL,'mp3','a/mp3',NULL,'2014-12-08 08:23:09'),(255,10,2,NULL,'bmp','application/bmp',NULL,'2014-12-08 08:23:09'),(256,10,0,NULL,'swf','application/x-shockwave-flash','','2014-12-08 08:23:09'),(257,10,0,NULL,'gif','i/gif',NULL,'2014-12-08 08:23:09'),(259,10,0,NULL,'dhtml','text/dhtml','.txt','2014-12-08 08:23:09'),(260,10,0,NULL,'asp','text/asp','.txt','2014-12-08 08:23:09'),(261,10,0,NULL,'aspx','text/aspx','.txt','2014-12-08 08:23:09'),(262,10,0,NULL,'shtml','text/shtml','.txt','2014-12-08 08:23:09'),(263,10,0,NULL,'shtm','text/shtm','.txt','2014-12-08 08:23:09'),(264,10,0,NULL,'jsp','text/jsp','.txt','2014-12-08 08:23:09'),(266,10,0,NULL,'aif','audio/x-aiff',NULL,'2014-12-08 08:23:09'),(267,10,0,NULL,'aiff','audio/x-aiff',NULL,'2014-12-08 08:23:09'),(268,10,0,NULL,'arc','application/octet-stream',NULL,'2014-12-08 08:23:09'),(269,10,0,NULL,'arj','application/octet-stream',NULL,'2014-12-08 08:23:09'),(270,10,0,NULL,'art','application/x-jg',NULL,'2014-12-08 08:23:09'),(271,10,0,NULL,'asf','video/x-ms-asf',NULL,'2014-12-08 08:23:09'),(272,10,0,NULL,'asx','video/x-ms-asf',NULL,'2014-12-08 08:23:09'),(273,10,0,NULL,'avi','video/avi',NULL,'2014-12-08 08:23:09'),(274,10,0,NULL,'bin','application/octet-stream',NULL,'2014-12-08 08:23:09'),(275,10,0,NULL,'bm','application/bmp',NULL,'2014-12-08 08:23:09'),(276,10,0,NULL,'bz2','application/x-bzip2',NULL,'2014-12-08 08:23:09'),(277,10,0,NULL,'css','text/css',NULL,'2014-12-08 08:23:09'),(278,10,0,NULL,'doc','application/msword',NULL,'2014-12-08 08:23:09'),(279,10,0,NULL,'dot','application/msword',NULL,'2014-12-08 08:23:09'),(280,10,0,NULL,'dv','video/x-dv',NULL,'2014-12-08 08:23:09'),(281,10,0,NULL,'dvi','application/x-dvi',NULL,'2014-12-08 08:23:09'),(282,10,0,NULL,'eps','application/postscript',NULL,'2014-12-08 08:23:09'),(283,10,0,NULL,'exe','application/octet-stream',NULL,'2014-12-08 08:23:09'),(284,10,0,NULL,'gz','application/x-gzip',NULL,'2014-12-08 08:23:09'),(285,10,0,NULL,'gzip','application/x-gzip',NULL,'2014-12-08 08:23:09'),(286,10,0,NULL,'ico','application/x-icon',NULL,'2014-12-08 08:23:09'),(287,10,0,NULL,'jpe','application/jpeg',NULL,'2014-12-08 08:23:09'),(288,10,0,NULL,'jpg','i/jpg',NULL,'2014-12-08 08:23:09'),(289,10,0,NULL,'jpeg','i/jpg',NULL,'2014-12-08 08:23:09'),(290,10,0,NULL,'js','application/x-javascript','.txt','2014-12-08 08:23:09'),(291,10,0,NULL,'log','text/plain',NULL,'2014-12-08 08:23:09'),(292,10,0,NULL,'mid','audio/x-midi',NULL,'2014-12-08 08:23:09'),(293,10,0,NULL,'mp2','audio/mpeg',NULL,'2014-12-08 08:23:09'),(294,10,0,NULL,'mpg','audio/mpeg',NULL,'2014-12-08 08:23:09'),(295,10,0,NULL,'pdf','aplication/pdf',NULL,'2014-12-08 08:23:09'),(296,10,0,NULL,'png','i/png',NULL,'2014-12-08 08:23:09'),(297,10,0,NULL,'rtf','application/rtf',NULL,'2014-12-08 08:23:09'),(298,10,0,NULL,'tif','application/tiff',NULL,'2014-12-08 08:23:09'),(299,10,0,NULL,'tiff','application/tiff',NULL,'2014-12-08 08:23:09'),(300,10,0,NULL,'xml','text/xml','.txt','2014-12-08 08:23:09'),(301,0,16,NULL,NULL,'论坛表情数据',NULL,'2014-12-08 08:23:09'),(302,0,17,NULL,NULL,'论坛视频网站支持',NULL,'2014-12-08 08:23:09'),(303,17,2,NULL,NULL,'土豆网','WWW.TUDOU.COM','2014-12-08 08:23:09'),(304,17,1,NULL,NULL,'优酷网','V.YOUKU.COM','2014-12-08 08:23:09'),(305,17,3,NULL,NULL,'酷6网','PLAYER.KU6.COM','2014-12-08 08:23:09'),(306,17,4,NULL,NULL,'搜狐视频','SHARE.VRS.SOHU.COM','2014-12-08 08:23:09'),(307,17,5,NULL,NULL,'56网','WWW.56.COM','2014-12-08 08:23:09'),(308,17,6,NULL,NULL,'爆米花网','RESOURCES.POMOHO.COM','2014-12-08 08:23:09'),(309,14,0,NULL,'submitcontentillegal',NULL,'提交内容含有危险代码！','2014-12-08 08:23:09'),(310,14,0,NULL,'contentshort',NULL,'标题或者内容字数不够。','2014-12-08 08:23:09'),(311,17,7,NULL,NULL,'优酷网','PLAYER.YOUKU.COM','2014-12-08 08:23:09'),(313,10,0,NULL,'mp4','v/mp4',NULL,'2014-12-08 08:23:09'),(314,14,0,0,'illegallogin','','非法登陆！','2014-12-08 08:23:09');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `tdict` ENABLE KEYS */;
+
+--
+-- Table structure for table `tfrid`
+--
+
+DROP TABLE IF EXISTS `tfrid`;
+CREATE TABLE `tfrid` (
+  `uid` int(11) NOT NULL default '0' COMMENT '用户id',
+  `fid` int(11) NOT NULL default '0' COMMENT '朋友id',
+  `comm` blob COMMENT '说明',
+  `ctime` datetime default NULL COMMENT '加入时间',
+  `type` int(1) NOT NULL default '0' COMMENT '0 朋友； 1 消息拒绝人',
+  PRIMARY KEY  (`uid`,`type`,`fid`),
+  KEY `uid` (`uid`,`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='朋友数据';
+
+--
+-- Dumping data for table `tfrid`
+--
+
+
+/*!40000 ALTER TABLE `tfrid` DISABLE KEYS */;
+LOCK TABLES `tfrid` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `tfrid` ENABLE KEYS */;
+
+--
+-- Table structure for table `tgup`
+--
+
+DROP TABLE IF EXISTS `tgup`;
+CREATE TABLE `tgup` (
+  `id` int(11) NOT NULL auto_increment,
+  `pid` int(11) default NULL COMMENT '父论坛id',
+  `uid` int(11) NOT NULL default '0' COMMENT '创建人id',
+  `gps` int(4) NOT NULL default '0' COMMENT '游客可访问论坛标记标记',
+  `ups` int(4) NOT NULL default '0' COMMENT '用户可访问论坛排序标记',
+  `sort` int(4) NOT NULL default '0' COMMENT '主排序标记',
+  `name` varchar(500) default NULL COMMENT '论坛名称',
+  `top2` int(4) NOT NULL default '0' COMMENT '前2层为1，深过2层为0',
+  `comm` varchar(2000) default NULL COMMENT '论坛说明',
+  `ctime` datetime default NULL COMMENT '创建时间',
+  `atime` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `stat` enum('E','D') default 'D' COMMENT 'E=Enable,D=Disable',
+  `ltitle` varchar(1000) default NULL COMMENT '最后发贴内容',
+  `luser` varchar(50) default NULL COMMENT '最后发贴人',
+  `ltime` datetime default NULL COMMENT '最后发贴时间',
+  `luid` int(11) NOT NULL default '0' COMMENT '最后发帖人id',
+  `liid` int(11) NOT NULL default '0' COMMENT '最后发帖id',
+  `vnum` int(11) NOT NULL default '0' COMMENT '访问人数',
+  `inum` int(11) NOT NULL default '0' COMMENT '帖子数量',
+  `dnum` int(11) NOT NULL default '0' COMMENT '无效帖数',
+  `rigt` int(11) NOT NULL default '2147483647' COMMENT '权限',
+  `level` int(4) NOT NULL default '1' COMMENT '论坛等级',
+  `rnum` int(11) NOT NULL default '0' COMMENT '回复总数',
+  `drnu` int(11) NOT NULL default '0' COMMENT '无效回复数',
+  `sfnu` int(4) NOT NULL default '0' COMMENT '子论坛数',
+  `tpnu` int(4) NOT NULL default '0' COMMENT '置顶帖子数量',
+  `mxtp` int(4) NOT NULL default '20' COMMENT '最多置顶贴数量',
+  PRIMARY KEY  (`id`),
+  KEY `pid` (`pid`,`sort`),
+  KEY `gps` (`gps`),
+  KEY `ups` (`ups`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='论坛';
+
+--
+-- Dumping data for table `tgup`
+--
+
+
+/*!40000 ALTER TABLE `tgup` DISABLE KEYS */;
+LOCK TABLES `tgup` WRITE;
+INSERT INTO `tgup` VALUES (1,0,1,1,1,2,'有例子帖子的范例讨论组1',0,'范例讨论组','2014-12-08 16:23:09','2014-12-08 08:23:10','E',NULL,NULL,NULL,0,1,0,1,0,2147483647,1,0,0,1,0,20),(2,0,1,5,5,3,'范例讨论组2',0,'范例讨论组','2014-12-08 16:23:09','2014-12-08 08:23:10','E',NULL,NULL,NULL,0,0,0,0,0,2147483647,1,0,0,2,0,20),(3,2,1,6,6,1,'范例讨论组21',0,'范例讨论组','2014-12-08 16:23:09','2014-12-08 08:23:10','E',NULL,NULL,NULL,0,0,0,0,0,2147483647,1,0,0,0,0,20),(4,2,1,7,7,2,'范例讨论组22',0,'范例讨论组','2014-12-08 16:23:09','2014-12-08 08:23:10','E',NULL,NULL,NULL,0,0,0,0,0,2147483647,1,0,0,0,0,20),(5,1,1,2,2,1,'范例讨论组11',0,'范例讨论组','2014-12-08 16:23:09','2014-12-08 08:23:10','E',NULL,NULL,NULL,0,65,0,0,0,2147483647,1,0,0,2,0,20),(6,5,1,3,3,1,'范例讨论组111',0,'范例讨论组','2014-12-08 16:23:09','2014-12-08 08:23:10','E',NULL,NULL,NULL,0,60,0,0,0,2147483647,1,0,0,0,0,20),(7,5,1,4,4,2,'范例讨论组112',0,'范例讨论组','2014-12-08 16:23:09','2014-12-08 08:23:10','E',NULL,NULL,NULL,0,0,0,0,0,2147483647,1,0,0,0,0,20);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `tgup` ENABLE KEYS */;
+
+--
+-- Table structure for table `thelp`
+--
+
+DROP TABLE IF EXISTS `thelp`;
+CREATE TABLE `thelp` (
+  `id` int(11) NOT NULL auto_increment,
+  `pid` int(11) NOT NULL default '0' COMMENT '父id',
+  `title` varchar(500) NOT NULL COMMENT '标题',
+  `body` mediumtext NOT NULL COMMENT '帮助内容',
+  `link` varchar(100) default NULL COMMENT '连接信息',
+  `sort` int(11) NOT NULL default '0' COMMENT '排序位',
+  `type` int(1) NOT NULL default '0' COMMENT '0，游客帮助；1，用户帮助；2，管理员帮助；3，保留字；4，共享帮助',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='帮助内容';
+
+--
+-- Dumping data for table `thelp`
+--
+
+
+/*!40000 ALTER TABLE `thelp` DISABLE KEYS */;
+LOCK TABLES `thelp` WRITE;
+INSERT INTO `thelp` VALUES (1,0,'游客帮助','','1',0,3),(2,0,'用户帮助','','2',0,3),(3,0,'管理员帮助','','3',0,3),(4,0,'论坛说明','<p>&nbsp;\r\n<p>欢迎来到本论坛\r\n<p>本论坛有如下版块，欢迎参与讨论。</p>','4',0,4),(5,1,'为何要注册','<p>&nbsp;\r\n<p>游客只能在论坛里浏览一些对游客开放权限的论坛和帖子，无法发表主题也无法参与回复评论。\r\n<p>您只有注册成为论坛正式用户才能发布属于自己的帖子和参与回复评论已有帖子，订阅自己关注的帖子，在论坛里交到好朋友等等。并在这些过程中获取论坛积分，得到在线时间累积，获取高阅读权限。并可申请成为论坛管理员等等。\r\n<p>请点击 <a class=goldlink href=\"../pro/userreg.php\">这里</a> 注册成为我们的新用户。\r\n<p>建议您先注册为论坛用户后再访问论坛，这样会得到很多游客身份无法实现的功能，比如获取论坛积分，浏览高权限精彩帖子等。','5',0,0),(6,1,'游客可以使用的功能','<p>&nbsp;\r\n<p>游客可以浏览对游客开放的论坛,如果您幸运的话还可以看到或下载论坛成员上传的图片和附件，不过您不可以发表帖子和参与帖子的讨论赚取积分，不可以向其他会员发送消息，不可以把其他会员加入朋友，等等。\r\n<p>对了，您还可以使用论坛搜索功能。','6',0,0),(7,1,'如何注册','<p>&nbsp;\r\n<p>您只要 <a class=goldlink href=\"../pro/userreg.php\">点击这里</a> ，就可以快速完成注册，成为论坛会员。\r\n<p>欢迎您的加入！','7',0,0),(8,1,'取回密码','<p>&nbsp;\r\n<p>如果您忘记了自己的密码，就可以在下面的表格中填写自己的用户名或用户id,我们将会把您的密码发送到您用户资料中的Email地址内，请您尽快查收。\r\n<p style=padding-top:10 id=ts><input type=radio name=ut value=0 checked>用户名称 <input type=radio name=ut value=1>用户编号 <input type=radio name=ut value=2>邮件地址 <input type=text id=uname name=uname> <input type=button id=btnsub onclick=\"getpass()\" value=\"  提交  \"> <b id=chkmsg></b>\r\n<SCRIPT language=\"JavaScript\" src=\"../js/js.js\"></script>\r\n<script language=javascript>\r\nfunction getpass(){\r\nif(ckname(G(\"uname\"))){\r\nwindow.open(\"getpass.htm\",\"def\",\"height=200,width=300\")\r\nG(\"btnsub\").disabled=true\r\n}\r\n}\r\nfunction ckname(obj){\r\nobj.value=trim(obj.value);\r\nvar msgobj=G(\"chkmsg\"),s\r\nif(!obj.value.length)s=\"请填写用户资料.\"\r\nif(ts.childNodes[2].checked&&/\\D/.test(obj.value))s=\"用户编号是一个数字,请重新填写.\"\r\nif(s){msgobj.innerHTML=s;obj.focus();return false}\r\nmsgobj.innerHTML=\"\";\r\nreturn true;\r\n}\r\n</script>\r\n','8',0,0),(9,0,'如何使用搜索','<style>\r\n.ii li{line-height:22px;margin:3 0;}\r\n.iim li{margin:5 0;}\r\n</style>\r\n<p>&nbsp;\r\n<p>点击导航栏上面的[<a class=goldlink href=\"../pro/search.php\">搜索</a>]，输入搜索的关键字并选择一个范围，就可以检索到您有权限访问论坛中的相关的帖子。\r\n<ul type=1 class=iim>\r\n<li><a name=fast>快速搜索</a></li>\r\n<p>论坛快速搜索为用户提供了一个方便快捷的搜索方式，用户可以在这里使用帖子或回复的特别属性快速的搜索到想要查找到的目标。由于采用了一些特殊的搜索算法，使搜索只需要消耗少量的计算代价就可完成查找。因此您可放心的在此使用搜索。\r\n<ul class=ii>\r\n<p>快速搜索指南：\r\n<li>每次最多可显示查询出前50条记录，如果查询到50条记录，那么查询结果很可能远远大于50条记录。反之，如果查询结果小于50条记录，则此查询已经查找出了论坛内所有符合查询条件的帖子。</li>\r\n<li>组合查找条件可使您轻松查询到下一个50条记录。例如某论坛里有ID为1000-5000连续的帖子4000条，您单独勾选该论坛后可直接查询出ID编号为1000-1050的前50个帖子；此时您可添加查询条件ID，填入1051后再次查询，就可查询出该坛内ID编号为1051-1100的50个帖子。依此类推，您可顺序浏览完该坛内所有帖子。</li>\r\n<li>属性规则和搜索例子<br>\r\n<table id=mrt class=b cellspacing=0 cellpadding=5>\r\n<tr class=tr><th colspan=3>属性规则\r\n<tr><td width=100>查找属性<td>说明<td width=80>数据库字段\r\n<tr><td>A.用户名或ID<td>可单独使用，并可和C、D、E组合。<td>uid\r\n<tr><td>B.帖子或回复ID<td>可单独使用，并可和C、D、E组合。<br>当A出现时，此属性无效。<br>当E出现时，C必须出现，此属性才有效。<td>id\r\n<tr><td>C.“从”时间<td>可单独使用，也可和其它属性组合。<br>当B出现时，查询条件为：ftime=C and id>=B<td>ftime\r\n<tr><td>D.“到”时间<td>可单独使用，也可和其它属性组合，当B出现时无效。<td>ttime\r\n<tr><td>E.附件数量<td>可单独使用，也可和其它属性组合。<td>ano\r\n<tr class=tr><td colspan=3>搜索例子\r\n<tr><td>填写查找属性<td>查找条件<td>忽略属性\r\n<tr><td>A,B,C,D,E<td>uid=A and ano=E and ftime>=C and ttime<=D<td>B\r\n<tr><td>A,B,C<td>uid=A and ftime>=C<td>B\r\n<tr><td>B<td>id>=B<td>无\r\n<tr><td>B,C,D<td>ftime=C and id>=B<td>D\r\n<tr><td>C,D,E<td>ano=E and ftime>=C and ttime<=D<td>无\r\n<tr><td>B,C,D,E<td>ano=E and ftime=C and id>=B<td>D\r\n</table>\r\n</li>\r\n</ul>\r\n<li><a name=fulltext>全文搜索</a></li>\r\n<p>全文搜索可以像网络搜索引擎一样使用英文关键词查找帖子和回复的标题和内容。\r\n<p>例如输入\"javascript vbscript\"就可查找出标题或帖子里包含有javascrip单词的，和包含有vbscript单词的，或者两个单词都包含的帖子。\r\n<p>缺点：由于全文搜索使用的是数据库自带的搜索引擎，所以目前只支持英文单词的全文索引。中文目前无法查询。我们正在开发中文引擎。敬请期待。\r\n</ul>\r\n\r\n<p>搜索权限：搜索引擎的权限使用用户所拥有的权限规则查询和显示查找结果。管理员权限在此处无效。管理员可使用管理员面板查找功能行使管理权。','9',0,4),(10,9,' 快速搜索','','9#fast',0,4),(11,9,'全文搜索','','9#fulltext',0,4),(12,2,'如何编辑帖子','<script src=../w/avi.js language=javascript></script>\r\n<textarea id=codeT>\r\n<html>\r\n<head><title>代码翻译</title></head>\r\n<body>\r\n<style>body{font-size:13px;}</style>\r\n<p style=\"color:red;\">代码翻译可以让您更方便快捷的阅读代码。</p>\r\n<script language=javascript>\r\nalert(\"代码翻译。\")\r\n</script>\r\n</body>\r\n</html></textarea>\r\n<script language=javascript>cvLan={}</script>\r\n<script src=../pro/js/gc.js language=javascript></script>\r\n<script src=../pro/js/lan/104.js language=javascript></script>\r\n\r\n<style>\r\n\r\n.edit img{border:1px solid #AAA}\r\n.edit td{border-top:1px solid gray;font-size:13px;}\r\n.edit th{text-align:left;font-weight:normal;font-size:13px;}\r\n.edit u{margin-right:5px;}\r\n\r\n.code{\r\npadding:5px;\r\nborder-width:3 1;\r\nborder-style:solid;\r\nborder-color:#BBF;\r\nmargin:2 0;\r\n\r\nwhite-space:pre-wrap; /* css-3 */\r\nwhite-space:-moz-pre-wrap; /* Mozilla, since 1999 */\r\nwhite-space:-pre-wrap; /* Opera 4-6 */\r\nwhite-space:-o-pre-wrap; /* Opera 7 */\r\nword-wrap:break-word; /* Internet Explorer 5.5+ */\r\n}\r\n.code a,.code a:visited{\r\ncolor:white;\r\nbackground-color:red;\r\nfloat:right;\r\npadding:5px;\r\nmargin:-5 0;\r\n}\r\n.code ol{margin:0}\r\n.code b{color:blue;font-weight:normal}\r\n.code i{color:green;font-style:normal}\r\n.code u{color:red;text-decoration:none;margin:0}\r\n.code s{color:DarkGray;text-decoration:none;}\r\n.code li{padding:2px}\r\n.code ol{list-style-type:decimal-leading-zero}\r\n.code .il{background-color:#f5f5f5}\r\n\r\n.getcode{\r\nborder:1px solid red;\r\nbackground-color:white;\r\npadding:5px;\r\nfloat:right;\r\nwidth:400px;\r\nmargin:-5 0 5 5;\r\n\r\nwhite-space:pre-wrap; /* css-3 */\r\nwhite-space:-moz-pre-wrap; /* Mozilla, since 1999 */\r\nwhite-space:-pre-wrap; /* Opera 4-6 */\r\nwhite-space:-o-pre-wrap; /* Opera 7 */\r\nword-wrap:break-word; /* Internet Explorer 5.5+ */\r\n\r\n}\r\n</style>\r\n<div class=edit>\r\n<p>&nbsp;</p>\r\n<ul>\r\n<li><a name=feature>编辑器特点</a></li>\r\n<p>编辑器2.0 使用了更为方便的所见所得编辑方式。让编辑帖子更便捷，功能更强大。可以在目前主流浏览器Trident内核(IE),Gecko内核(Firefox),Webkit内核(Safari, Chrome)上使用。无论是菜单还是窗口，它们都有相似的界面和操作习惯。编辑引擎尽可能的考虑到了代码安全性及代码使用效率，让用户使用起来既快捷方便又无后顾之忧。支持了目前流行的段落左右对齐，文本粗斜体及颜色修饰等大多数的编辑功能。支持图片，动画，以及mp3音乐，flv影片，并为多媒体的播放提供了专用播放器，无论是用户上传的附件还是网络连接的媒体文件都可用这些播放器统一播放。扩展了诸如建立调查表和插入程序代码等专业化的工具。\r\n<li><a name=emotion>使用表情</a></li>\r\n<p>您可在帖子里使用表情来更生动的表达您的喜怒哀乐，甚至更为复杂的心情。表情严格来说也是图片，只需在 <img src=../pro/e/img/46.gif title=插入表情> 表情窗口中选取表情即可把表情插入到编辑光标处。\r\n<li><a name=picture>使用图片</a></li>\r\n<p>图片往往能比文字更好的表达作者意图，所谓一图顶千言说的就是图片在帖子中的作用了。\r\n<p>想要在帖子中插入图片可在 <img src=../pro/e/img/10.gif title=插入连接> 窗口中选择“图片”标签，在“连接地址”栏中输入图片地址后按“确定”按纽就可在编辑光标处插入目标地址图片。\r\n<p>jpeg和png格式图片上传后系统将会自动为其添加水印，水印的格式为：您的用户名「论坛名称」。\r\n<p>建议：网页图片最好使用压缩率高、质量好的图片格式，可以使用 jpeg 或者 gif 格式图片。\r\n<li><a name=media>使用多媒体</a></li>\r\n<p>多媒体的支持可以让您和大家分享好听的音乐和有趣的视频，甚至是精彩的电影。可让您的帖子更聚人气。\r\n<p>通过 <img src=../pro/e/img/10.gif title=插入连接> 就可打开窗口选择“音视频”或者“视频”编辑您的多媒体文件。\r\n<ul>\r\n<li>音视频</li>\r\n<p>“音视频”支持的多媒体格式包括用户上传的或者网络连接的音乐和视频，中选择“音视频”标签就可打开输入界面。“连接地址”栏填写媒体文件目标地址。“播放器”选择希望使用的媒体播放器，这里我们提供了flash和HTML两类播放器。最后在选择媒体文件属于音频还是视频。选择完成后会提示您的选择支持的媒体文件格式，以免造成播放错误。\r\n<li>视频</li>\r\n<p>“视频”标签支持的是包含有自有播放器的主流网络视频网站的视频。目前我们支持以下网站的视频：<script language=javascript>document.write(vid)</script>\r\n<p>您可直接在这些网站的视频里复制他们分享中的falsh播放地址后粘贴到我们的“地址栏”中就可发布到您自己的帖子中。\r\n</ul>\r\n<li><a name=upload>上传附件</a></li>\r\n<p>帖子和回复中都可以上传附件，他们可以是任何类型的文件，图片、音乐和视频文件自动被系统显示和处理。\r\n<p>打开 <img src=../pro/e/img/20.gif title=上传附件> 窗口就可开始上传您自己的附件。使用“选择文件”按钮可打开文件选择器选取要上传的文件。选中的文件将显示在文件列表内，按“提交”按钮开始上传文件，文件上传过程中会为每一个上传文件显示进度条，让您直观的了解文件上传情况。文件上传成功后，文件名将显示为一个连接，若想把文件编辑到帖子内容中，您只需用鼠标点击这些连接就可轻松把附件插入到编辑光标处。\r\n<p>若想替换已有的上传文件，可使鼠标停留在上传文件上后使用“替换”按钮完成替换；替换后的文件并没有真被替换，只有使用“提交”按钮上传文件后才算完成文件替换。\r\n<p>上传文件也许会由于一些网络问题或者服务器错误发生失败，这些错误消息您可使用“info”按钮查看详细。\r\n<li><a name=suvery>使用调查表</a></li>\r\n<p>调查表可以使您在论坛中做一些有趣的民意测验，增加您与论坛其他用户互动，了解其他人对某些事物的看法等。\r\n<p>打开 <img src=../pro/e/img/1.gif title=添加调查> 窗口就可建立一张调查表。调查表由调查说明、调查条目、有效投票时间、单/多选投票和投票结果显示组成。每个调查表至少拥有两条调查条目。\r\n<p>注意：修改条查表会导致所有已有调查数据作废，所有投票将清零。\r\n<li><a name=code>插入代码</a></li>\r\n<p>计算机语言由于其特殊的语言格式使其有可能按照模式化的格式显示。为了让代码更方便于阅读和识别，我们特别的为这些语言模块编写了翻译程序。\r\n<p>打开 <img src=../pro/e/img/18.gif title=编辑代码> 窗口就可在录入或粘贴程序语言代码，选择相应的语言后按确定就可在编辑光标处插入经过翻译格式化后的代码块。由于这些代码块翻译算法相对复杂，所以他们是不可编辑的，不过您可选定它们后直接删除。\r\n<p>源码：\r\n<div id=coRPre></div>\r\n<p>翻译后结果：\r\n<pre id=coPre class=code></pre>\r\n<script language=javascript>\r\n\r\nfunction G(t){return document.getElementById(t)}\r\n\r\nco=G(\"codeT\")\r\n\r\nco.parentNode.removeChild(co)\r\n\r\ncoRPre.innerHTML=\"<pre class=code>\"+co.value.replace(/</g,\"&lt;\")\r\n\r\ncoPre.d=co\r\n\r\ncvLan[\"h\"](coPre)\r\n\r\n</script>\r\n<li><a name=character>使用特别字符</a></li>\r\n<p>编辑器目前使用国标utf8字符集。对于字符集以外的字符，由于安全问题不可直接输入，但是所有字符都可使用HTML转义编码直接录入。如输入&#38;hearts;就可得到&hearts;符号。\r\n<li>其他</li>\r\n<ol>\r\n<li>阅读权限</li>\r\n<p>帖子的阅读权限和用户阅读权限相对应。除了管理员以外，每个用户只能访问阅读权限等于或小于自己阅读权限的帖子。所以在设置帖子阅读权限时应考虑到这点，权限过高可能导致大部分用户无法访问您的帖子。\r\n<li>接受回复</li>\r\n<p>是否接受回复可让您打开或关闭其他用户的回复。这可用于结贴。\r\n<p>注意：帖子关闭后并不能阻止您自己和管理员回复帖子。\r\n<li>显示内容</li>\r\n<p>这可以控制自己在帖子内发表的内容是否可以显示给其他用户阅读。但这并不影响帖子是否可以被用户访问或回复。\r\n<li>游客访问</li>\r\n<p>设置帖子是否可以让未注册成论坛用户的游客访问。\r\n<li>连接地址输入约定</li>\r\n<p>完整性：所有论坛站点外地址都必须填写以http://开头的完整地址。\r\n<p>字符集：由于安全因素，ascii码小于32的字符都要使用URL编码。如ascii码为31的字符，其16进制表示为1F，其URL编码为%1F。\r\n</ol>\r\n</ul>\r\n</div>','12#',0,1),(58,12,'使用图片','','12#picture',2,1),(59,12,'使用多媒体','','12#media',3,1),(13,12,'编辑器特点','','12#feature',0,1),(60,12,'使用特别字符','','12#character',7,1),(14,12,'使用表情','','12#emotion',1,1),(15,12,' 上传附件','','12#upload',4,1),(17,12,'使用调查表','','12#suvery',5,1),(18,12,'插入代码','','12#code',6,1),(20,2,'管理自己（我的内容）','<p>&nbsp;\r\n<p>我的面板为您提供了一组方便快捷维护自己个人资料的工具。\r\n<ul>\r\n<li><a name=subs>订阅</a></li>\r\n<p>您可以订阅自己感兴趣的帖子，以免以后为再次访问该贴而查找该帖烦恼。请点击[<a class=goldlink href=\"../pro/myself.php?type=0\">这里</a>]维护。\r\n<ul>\r\n<li>如何订阅</li>\r\n<p>只要在帖子头部点击[订阅]该贴即可。\r\n<li>管理订阅</li>\r\n<p>您可以为订阅添加说明，删除不再感兴趣的帖子。如果您想调整您订阅的位置，只要从新订阅该贴即可把这个帖子排在订阅的第一位。\r\n</ul>\r\n<li><a name=frid>论坛朋友</a></li>\r\n<p>您可以把论坛里任何人加为好友,以方便您向他/她发送论坛内消息。请点击[<a class=goldlink href=\"../pro/myself.php?type=1\">这里</a>]维护。\r\n<ul>\r\n<li>怎样添加朋友</li>\r\n<p>只要在帖子里用户内容里点击[加为好友]即可。\r\n<li>管理朋友</li>\r\n<p>可以为您的好友添加说明,删除不再联系的好友。\r\n</ul>\r\n<li><a name=note>自己的帖子</a></li>\r\n<p>可以点击[<a class=goldlink href=\"../pro/myself.php?type=2\">这里</a>]查看自己发表的所有帖子。您在论坛里发表的所有帖子是按发表时间顺序排序的，并且可以对自己的帖子做简单维护，如设置是否可见。\r\n<li><a name=rpl>自己的回复</a></li>\r\n<p>可以点击<a class=goldlink href=\"../pro/myself.php?type=3\">这里</a>]查看自己发表的所有回复。您在论坛里的所有回复是按发表时间顺序排序的，并且可以对自己的回复做简单维护，如设置是否可见。\r\n<li><a name=right>自己的权限</a></li>\r\n<p>您可以点击[<a class=goldlink href=\"../pro/myself.php?type=4\">这里</a>]查看自己所拥有的权限。\r\n<ul>\r\n<li>设置贴子默认权限</li>\r\n<p>可以在这里设置您发表新帖子的默认权限，有阅读权限,是否可见,游客是否可见等。\r\n<li>设置回复默认权限</li>\r\n<p>可以在这里设置您发表新回复的默认权限，有是否可见,游客是否可见等。\r\n<li>小技巧</li>\r\n<p>您可以把默认权限设置为不可见或阅读权限很高，等你认为编辑得很好了，再把帖子权限修改低。\r\n</ul>\r\n<li><a name=desc>自己的信息</a></li>\r\n<p>您可以点击[<a class=goldlink href=\"../pro/myself.php?type=5\">这里</a>]查看自己和修改自己的信息。\r\n<ul>\r\n<li>修改用户名和修改密码</li>\r\n<p>点击[<a class=goldlink href=\"../pro/myself.php?type=5\">这里</a>]修改,提示，用户名和密码属于关键信息，您必须提供您的目前密码。\r\n</ul>\r\n</ul>','20',0,1),(21,20,'订阅','','20#subs',0,1),(22,21,'如何订阅','','20#subs',0,1),(23,21,'管理订阅','','20#subs',0,1),(24,25,'怎样添加朋友','','20#frid',0,1),(25,20,'论坛朋友','','20#frid',0,1),(26,20,'自己的帖子','','20#note',0,1),(27,25,'管理朋友','','20#frid',0,1),(28,20,'自己的回复','','20#rpl',0,1),(29,20,'自己的权限','','20#right',0,1),(30,29,'设置贴子默认权限','','20#right',0,1),(31,29,'设置回复默认权限','','20#right',0,1),(32,20,'自己的信息','','20#desc',0,1),(33,32,'修改用户名和修改密码','','20#desc',0,1),(34,2,'站内消息','<p>&nbsp;\r\n<p>您可以向论坛里任何不拒绝您的人发送短消息,以方便联络。\r\n<ul>\r\n<li><a name=send>如何发送消息</a></li>\r\n<p>点击论坛用户信息里的[发送消息]即可跳转到[<a class=goldlink href=\"../pro/msgs.php?type=3\">消息编辑介面</a>]编写消息发送，或者在消息编辑页面填写接收人用户名。\r\n<li><a name=size>消息箱的大小</a></li>\r\n<p>收到消息箱默认为500条消息，发送消息箱默认为400条消息，删除消息箱默认为300条消息,超出限制，系统将会提示您。\r\n<p>这些默认值是可以修改的，如果您有特别需求可联系管理员帮您重新订制大小。\r\n<li><a name=nomsg>如何拒绝别人对您发消息</a></li>\r\n<p>您可以点击[<a class=goldlink href=\"../pro/msgs.php?type=4\">这里</a>]把您不想联系的人填入拒绝表。\r\n<p>0 号联系人表示拒绝所有人向您发送消息。\r\n</ul>\r\n<p>小帮助 ^_^\r\n<p>当您收到新消息或者消息箱过载时，消息箱菜单会给您提示，但是这个提示的刷新间隔为1分钟，如果您想实时查看您的消息接收情况，请在[<a class=goldlink href=\"../pro/msgs.php\">消息箱</a>]页面内刷新，这里将给您更详细的提示。','34',0,1),(35,34,'如何发送消息','','34#send',0,1),(36,34,'消息箱的大小','','34#size',0,1),(37,34,'如何拒绝别人对您发消息','','34#nomsg',0,1),(38,2,'查看其他用户信息','<p>&nbsp;\r\n<p>您可以在任意位置点击论坛用户的连接查看用户信息，您甚至可以看到用户发表的帖子和回复。','38',0,1),(39,2,'如何计算积分','<p>&nbsp;\r\n<p>论坛积分计算\r\n<p>\r\n<style>\r\n.itb{border-collapse:collapse}\r\n.itb td{border:1px solid #AAA;}\r\n</style>\r\n<table class=itb summary=\"积分的计算方法\" cellpadding=5 cellspacing=0>\r\n<thead><tr><td><td>发表帖子<td>帖子加精<td>发表回复<td>每个上传附件<tbody><tr align=center><td>得分<td>6<td>10<td>2<td>5\r\n</table>\r\n<p>您的积分 = 贴数x5 + 精华贴数x10 + 回复数x2 + 上传附件总数x5\r\n<p>对于违规帖子，管理员删除帖子时会删除相关积分。','39',0,1),(40,2,'如何申请管理员','<p>&nbsp;\r\n<p>您可以在[站务管理]版块发帖子申请管理员，或向相关论坛版主发消息寻求帮助。','40',0,1),(41,2,'控制面板内容','<p>&nbsp;\r\n<p>控制面版综合了用户的精简信息，比如未阅读的新消息，朋友的在线情况，等内容。\r\n<ul>\r\n<li><a name=view>快速浏览</a></li>\r\n<p>[<a class=goldlink href=../pro/control.php>这里</a>]包含了用户未读消息，订阅帖子。是一个消息和订阅的精简综合体。\r\n<li><a name=list>论坛用户列表</a></li>\r\n<p>在[<a class=goldlink href=\"../pro/control.php?type=1\">这里</a>]您可以看到论坛所有用户。\r\n<li><a name=theme>个性化主题</a></li>\r\n<p>在[<a class=goldlink href=\"../pro/control.php?type=2\">这里</a>]您可以为自己选择喜欢的界面主题。\r\n<li><a name=bgs>论坛徽章</a></li>\r\n<p>[<a class=goldlink href=../pro/control.php?type=3>这里</a>]可查看论坛所有可申请徽章，您可按照徽章申请条件向管理员申请自己符合条件要求的徽章。\r\n</ul>','41',0,1),(42,41,'论坛用户列表','<p>&nbsp;\r\n<p>控制面版综合了用户的精简信息，比如未阅读的新消息，朋友的在线情况，等内容。\r\n<ul>\r\n<a name=list></a><p>\r\n	<li>论坛用户列表</li>\r\n	在[<a class=goldlink href=\"\">这里</a>]您可以为看到论坛所有用户.\r\n<a name=theme></a><p>\r\n	<li>个性化主题</li>\r\n	在[<a class=goldlink href=\"\">这里</a>]您可以为自己选择喜欢的界面主题.\r\n</ul>','41#list',1,1),(43,41,'个性化主题','','41#theme',2,1),(44,3,'论坛管理','<p>&nbsp;\r\n<p>论坛管理为管理员提供了一个管理论坛的工具。\r\n<p>管理员可以轻松的修改论坛信息及图标，维护论坛状态及权限，你甚至可以为论坛添加和删除管理员以及修改他们的权限。\r\n<p>不过要有以上管理权利，你必须是论坛的人事管理员；当然，如果您只是论坛普通管理员，您还是有很多事情可以做的，比如，管理帖子，管理回复，管理其他普通用户。\r\n','44',0,2),(45,44,'论坛权限','','54#right',1,2),(46,44,'论坛管理员','','54#mnger',2,2),(47,3,'用户管理','<p>&nbsp;\r\n<p>用户管理为管理员提供了一个管理论坛用户的平台。\r\n<p>要想管理用户，您必须先把用户加为管理用户，这可以通过两个方法实现：\r\n<ul type=1>\r\n<li>在您具有管理权的论坛里阅读帖子的时候，如果发现用户有违规内容或有可奖励的行为，即可直接点击加入管理连接把用户加为管理；</li>\r\n<li>通过用户管理的[<a class=goldlink href=\"../mng/mng.php?type=6\">搜索</a>]界面直接查找目标用户，然后加为管理。</li>\r\n</ul>\r\n<p>所有新加入的用户都首先放入了id为2的用户管理箱，(您在[<a class=goldlink href=\"../mng/mng.php?type=7\">管理维护</a>]界面中将看到此类管理箱显示为高亮。您有权修改名称，但无权删除。)把用户加为管理后，为了方便组织和查找用户，可以把用户分类别的放入您自定义的管理箱。如何创建自定义管理箱，请查阅[<a class=goldlink href=\"../help/help.php?helpid=53\">管理维护帮助</a>]。\r\n<p>&nbsp;','47',3,2),(48,47,'管理用户','<p>&nbsp;\r\n<p>被加入管理的用户我们可以把他们分类存储入相关的管理箱，这里[<a class=goldlink href=\"../mng/mng.php?type=7\">管理维护</a>]为您提供了创建和删除自定义管理箱的方法；\r\n<p>我们有两个方法找到被加入管理的用户：\r\n<ul>\r\n<li>1。选择管理箱</li>\r\n最新加入的用户都在id为2的管理箱内，也就是管理箱选择下拉框排在第一位的管理箱；如想管理哪一个管理箱内的用户，直接选择管理箱就可列出箱内用户。\r\n<li>2。搜索加入管理的用户</li>\r\n如果只记得被加入管理用户的某些特征，比如，发贴人，发贴时间，或者用户权限等内容您可选择管理箱选择下拉框最后一个选项[<a class=goldlink href=\"../mng/mng.php?type=5&boxid=0\">搜索</a>]及能方便搜索到您想管理的用户；<font class=warningc>注意</font>：这里的搜索范围仅是您加入管理的所有用户或某个或几个管理箱内的用户。\r\n<br>对于搜索的使用帮助，您可参阅[<a class=goldlink href=\"?helpid=49\">搜索用户帮助</a>]。\r\n</ul>\r\n<p>找到用户后，我们即可具体管理用户的如下内容：\r\n<ul>\r\n<li>修改注释</li>\r\n这里可以保存您对用户的个人看法，只是留给自己看的，避免忘记。<br><br>\r\n<li>查看其他管理员对此贴的意见或给其他管理员留言</li>\r\n这里可以查看到其他管理员对此用户的管理意见，或者可以留下自己的管理意见给其他管理员参考。<br><br>\r\n<li>用户管理</li>\r\n为了缩减数据传送量，我们把用户可管理的属性分成四个部分，您只要勾选各部分前面的有效框，就可编辑相关用户属性：<br><br>\r\n<ul>\r\n<li>1.状态和限制</li>\r\n	<ul>\r\n	<li>编辑</li>\r\n	点此连接可进入用户信息编辑修改页面，但您需要拥有用户管理修改权。<b>注意</b>：此功能目前只是接口，功能尚未开发。\r\n	<li>消息</li>\r\n	如果您有事情通知用户，您可点此连接给他发送站内短信。\r\n	<li>邮件</li>\r\n	点此可以向注册用户在注册时填写的邮件地址发送电子邮件。\r\n	<li>状态</li>\r\n	只有当用户状态为有效时才可正常登陆。\r\n	<li>等级</li>\r\n	点此可改变用户的等级，只有当用户登记等于或高于论坛等级，用户才有权进入论坛。\r\n	<li>最大消息收到数</li>\r\n	站内短消息箱的容量。\r\n	<li>最大消息收到数</li>\r\n	保留已发送消息箱的容量。\r\n	<li>最大消息删除数</li>\r\n	保留已删除消息箱的容量。\r\n	<li>最大订阅数</li>\r\n	用户最多订阅帖子的数量。\r\n	<li>最大朋友数</li>\r\n	用户在全论坛内能够保留朋友信息的数量。\r\n	</ul>\r\n<br>\r\n<li>2.奖励或惩罚</li>\r\n这部分的任何一项改动都自动向相关用户发送一条类型为管理员管理的站内短信，每一项都可附带一条奖惩原因说明，让用户知道为什么受到了奖励或惩罚。\r\n	<ul>\r\n	<li>阅读权</li>\r\n	每次最多为用户增减20分的阅读权，阅读权的范围为0 - 255。\r\n	<li>金钱数</li>\r\n	每次最多为用户增减100元的金钱，金钱的范围为0 - 无上限。\r\n	<li>积分值</li>\r\n	每次最多为用户增减100分的积分值，积分值的范围为0 - 无上限。\r\n	</ul>\r\n<br>\r\n<a name=right></a>\r\n<li>3.权限</li>\r\n论坛注册用户具有如下权利可以编辑：\r\n	<ul>\r\n	<li>浏览</li>\r\n	注册用户的基本权利，拥有此权利，用户才可浏览论坛和帖子。\r\n	<li>发贴</li>\r\n	用户具有发表新贴的权利，当然同时还必须满足相关论坛有效，论坛等级不高于用户等级，论坛发贴权开放。\r\n	<li>回复</li>\r\n	用户具有发表新回复的权利。\r\n	<li>修改</li>\r\n	用户具有修改自己已经发表的帖子和回复的权利。\r\n	<li>投票</li>\r\n	用户在可投票帖子内可以投票的权利。<b>注意</b>：此功能尚未完成。\r\n	<li>短信</li>\r\n	用户具有向其它用户或朋友发送短消息的权利。\r\n	<li>显示权(禁言)</li>\r\n	用户具有显示和隐藏自己发表的帖子或回复的内容的权利。\r\n	<li>是否管理员</li>\r\n	这是一个仅仅提示您此用户是否是管理员，以免您误操作。\r\n	</ul>\r\n<br>\r\n <li>4.<b>谨慎处理</b></li>\r\n这部分的内容直接删除或修改用户的信息，须谨慎处理：\r\n	<ul>\r\n	<li>删除用户</li>\r\n	这将<b>不可回复的删除用户</b>，连带用户发表的所有帖子，所有回复，以及它们带的附件等用户相关的一切数据都会被删除；此功能对具有管理权的论坛管理员无效。\r\n	<li>删除帖子</li>\r\n	这会删除用户所发表的所有帖子，以及帖子内的所有回复，相关附件也全部会删除。\r\n	<li>删除回复</li>\r\n	这会删除用户所发表的所有回复，回复的附件也全部会删除。\r\n	<li>重置密码</li>\r\n	这会把用户的密码置为555555，并向用户发送一个电子邮件通知。\r\n	<li>重置头像</li>\r\n	把用户头像设置为系统默认用户头像。\r\n	<li>重置签名</li>\r\n	把用户签名置空。\r\n	<li>重置简介</li>\r\n	把用户简介置空。\r\n	<li>数据重计算</li>\r\n	重新统计用户发表的所有帖子和回复的有效和无效数量。\r\n	<li>迁移管理箱</li>\r\n	您可以把用户移动到自己认为合适的管理箱，方便以后查阅管理。\r\n	<li>管理后放弃</li>\r\n	选择此项会把用户从您的管理箱内删除，但不会从论坛内删除，如您还想管理这个用户，可把用户再次加入管理。\r\n	</ul>\r\n<p><b>提示</b>：为了方便管理，当每个可编辑框得到焦点时都会在管理区下部显示相关帮助。\r\n</ul>','48',0,2),(49,47,'搜索用户','<p>&nbsp;\r\n<p>这里的[<a class=goldlink href=\"../mng/mng.php?type=6\">搜索用户</a>]的搜索范围是全论坛的所有用户，无论其是否有效。\r\n<p>为了方便查找，我们把用户属性做了如下几个方面的分类：\r\n<ul>\r\n<li>查询标记</li>\r\n查询标记有三个类型：\r\n<ul>\r\n<li>用户编号</li>\r\n您可以同时填写1个或多个用户编号，方便快速搜索。\r\n<li>用户名</li>\r\n这个选项类似用户编号。\r\n<li>用户名片段</li>\r\n这个方法扩大了搜索范围，不过在您不确定用户名的时候有了一个方便的选择。\r\n</ul>\r\n<br>\r\n<li>状态</li>\r\n可查询特别状态的用户。\r\n<br>\r\n<li>性别</li>\r\n可使查找范围减半。\r\n<br>\r\n<li>等级</li>\r\n可搜索特别等级的用户。\r\n<br><br>\r\n<li>注册时间范围</li>\r\n时间范围缩小了查找范围，不填写代表不使用时间范围；如果只填写 \"从\"，代表从\"从\"时到现在；若只填写\"到\"，则代表从开论坛至\"到\"时的范围；两个都填写，就代表从\"从\"时至\"到\"时的范围。\r\n<br><br>\r\n<li>权限</li>\r\n对于权限的介绍您可查看[<a class=goldlink href=\"?helpid=48#right\">管理用户帮助</a>]；\r\n<p>您可以对权限进行组合查找：\r\n<ul>\r\n<li>取权相等</li>\r\n顾名思义，此选项就是查出用户权限等于您选取的权限的用户。\r\n<li>取具有任意选择权限</li>\r\n此选项是一个或操作，是查出用户中只要具有您选取的任意一个权限就为条件成立。\r\n<li>取反</li>\r\n这个条件为以上两个选项取反。\r\n</ul>\r\n</ul>','49',0,2),(50,3,'帖子管理','<p>&nbsp;\r\n<p>帖子管理为管理员提供了一个管理论坛帖子的平台。\r\n<p>要想管理帖子，您必须先把帖子加为管理帖子，这可以通过两个方法实现：\r\n<ul type=1>\r\n<li>在您具有管理权的论坛里阅读帖子的时候，如果发现帖子有违规内容，即可直接点击加入管理连接把帖子加为管理；</li>\r\n<li>通过帖子管理的[<a class=goldlink href=\"../mng/mng.php?type=2\">搜索</a>]界面直接查找目标帖子，然后加为管理。</li>\r\n</ul>\r\n<p>所有新加入的帖子都首先放入了id为2的管理箱，(您在[<a class=goldlink href=\"../mng/mng.php?type=7\">管理维护</a>]界面中将看到此类管理箱显示为高亮。您有权修改名称，但无权删除。)把帖子加为管理后，为了方便组织和查找帖子，可以把帖子分类别的放入您自定义的管理箱。如何定义自定义管理箱，请查阅[<a class=goldlink href=\"../help/help.php?helpid=53\">管理维护帮助</a>]。\r\n<p>&nbsp;\r\n','50',1,2),(51,50,'管理帖子','<p>&nbsp;\r\n<p>被加入管理的帖子我们可以把他们分类存储入相关的管理箱，这里[<a class=goldlink href=\"../mng/mng.php?type=7\">管理维护</a>]为您提供了创建和删除自定义管理箱的方法；\r\n<p>我们有两个方法找到被加入管理的帖子：\r\n<ul>\r\n<li>1。选择管理箱</li>\r\n最新加入的帖子都在id为2的管理箱内，也就是管理箱选择下拉框排在第一位的管理箱；如果您想管理哪一个管理箱内的帖子，您可直接选择管理箱即可列出箱内帖子，方便管理。\r\n<li>2。搜索加入管理的帖子</li>\r\n如果您只记得被加入管理帖子的某些特征，比如，发贴人，发贴时间，或者帖子权限等内容您可选择管理箱选择下拉框最后一个选项[<a class=goldlink href=\"../mng/mng.php?type=1&boxid=0\">搜索</a>]及能方便搜索到您想管理的帖子；<font class=warningc>注意</font>：这里的搜索范围仅是您加入管理的所有帖子或某个或几个管理箱内的帖子。\r\n</ul>\r\n<p>找到帖子后，我们即可具体管理帖子的如下内容：\r\n<ul>\r\n<li>修改注释</li>\r\n这里可以保存您对帖子的个人看法，只是留给自己看的，避免忘记。\r\n<li>查看其他管理员对此贴的意见或给其他管理员留言</li>\r\n这里可以查看到其他管理员对帖子的管理意见，或者您可以留下自己的管理意见给其他管理员参考。\r\n<li>帖子管理</li>\r\n<ul>\r\n<li>编辑</li>\r\n点此连接可直接进入帖子编辑修改帖子阅读权、内容、添加和删除附件等等帖子可以修改的内容，只要您具有论坛的管理修改权，您就可以修改论坛内任何帖子。\r\n<li>删除</li>\r\n删除帖子，包含内容，附件，所有回复以及所有回复的所有附件，这会自动发送通知消息给发贴人；为了避免误删除，这里设置了双重选择，并添加了加亮提示。\r\n<li>状态修改</li>\r\n修改状态，当状态设置为不是有效时，帖子对普通用户不可见也不可编辑，以及帖子的回复也不见。\r\n<li>类型修改</li>\r\n可以修改帖子的类型，这可能改变帖子的显示位置。\r\n<li>等级修改</li>\r\n可以修改帖子的等级，这可能会使发帖人得到积分奖励。\r\n<li>重计算所有回复的顺序</li>\r\n这可以重新计算帖子所有可显示回复的显示顺序，这对正确的在显示回复页面和编辑内容页面之间的跳转很重要。(不过这很没有必要经常做，也许发现跳转有错再做也不迟)\r\n<li>删除帖子的所有回复</li>\r\n如果发现帖子的回复全都违规，您可选择这里一次性删除所有回复以及回复内的附件。为了避免误删除，这里设置了双重选择，并添加了加亮提示。\r\n<li>迁移管理箱</li>\r\n您可以把帖子移动到自己认为合适的管理箱，方便以后查阅管理。\r\n<li>迁移论坛</li>\r\n您可以把帖子在您具有管理权的论坛间移动，把帖子放置到您认为合适的论坛内，这会自动发送通知消息给发贴人。\r\n<li>修改权限</li>\r\n<a name=right></a>\r\n帖子权限分下面三类：\r\n<ul>\r\n<li>游客</li>\r\n<ul>\r\n<li>浏览</li>\r\n此权限标明帖子对未注册用户开放，他们可以浏览到此贴，前提是论坛等级为0，并且开放浏览权。\r\n</ul>\r\n<li>用户</li>\r\n<ul>\r\n<li>浏览</li>\r\n此权限标明帖子对注册用户开放，他们可以浏览到此贴，前提是那些注册用户的等级不低于论坛等级，并且开放浏览权。\r\n<li>显示</li>\r\n此权限为发贴人管理自己帖子的权限，他们可以在编辑帖子界面内控制自己帖子是否对普通论坛注册用户显示，管理员最好不要管理此权限，因为发贴人自己可改变此设置。\r\n<li>修改</li>\r\n管理员可以控制帖子是否可以修改，这只对发贴人有效，对具有论坛修改权的管理员无效。\r\n<li>回复</li>\r\n此权限为发贴人管理自己帖子的权限，他们可以在编辑帖子界面内控制自己帖子对普通论坛注册用户是否可回复，管理员最好不要管理此权限，因为发贴人自己可改变此设置。\r\n</ul>\r\n<li>管理</li>\r\n<ul>\r\n<li>显示</li>\r\n此权限对应上面用户的显示权，不过此权限为管理员控制帖子的权限，对普通论坛注册用户有效。\r\n<li>回复</li>\r\n此权限对应上面用户的回复权，不过此权限为管理员控制帖子的权限，对普通论坛注册用户有效。\r\n</ul>\r\n</ul>\r\n<li>管理后放弃</li>\r\n选择此项会把帖子从您的管理箱内删除，但不会从论坛内删除，如您还想管理这个帖子，可把帖子再次加入管理。\r\n</ul>\r\n</ul>','51',0,2),(52,3,'回复管理','<p>&nbsp;\r\n<p>回复管理为管理员提供了一个管理论坛回复的平台。\r\n<p>与帖子管理类似，要想管理回复，您必须先把回复加为管理帖子，这可以通过两个方法实现：\r\n<ul>\r\n<li>1。在您具有管理权的论坛里阅读帖子的时候，如果发现回复有违规内容，即可直接点击加入管理连接把回复加为管理；</li>\r\n<li>2。通过回复管理的[<a class=goldlink href=\"../mng/mng.php?type=4\">搜索</a>]界面直接查找目标回复，然后加为管理。</li>\r\n</ul>\r\n<p>所有新加入的帖子都首先放入了id为2的管理箱，(您在[<a class=goldlink href=\"../mng/mng.php?type=7\">管理维护</a>]界面中将看到此类管理箱显示为高亮。您有权修改名称，但无权删除。)把回复加为管理后，为了方便组织和查找，可以把回复分类别的放入您自定义的管理箱。如何定义自定义管理箱，请查阅[<a class=goldlink href=\"../help/help.php?helpid=53\">管理维护帮助</a>]。\r\n<p>&nbsp;\r\n','52',2,2),(53,3,'管理维护','<p>&nbsp;\r\n<p>管理维护为管理员提供了一个管理帖子、回复、用户自定义管理箱的平台。\r\n<p>对每一个类型的管理箱，箱子名称为高亮显示的为系统保留管理箱，所有新加入管理的对象都会放入此管理箱，您可再按您的分类需要把管理对象移动到相同类型的其他自定义管理箱内。\r\n<p>所有管理箱都可修改名称，包括系统保留管理箱，不必担心它们回弄混，系统保留箱永远会高亮显示。\r\n<p>保留箱内的对象数量会显示，方便您了解管理箱内对象数量，只有当数量为零时，您才可以删除管理箱。\r\n<p>当系统崩溃或未知道原因箱内对象数目不正确时，您可以重新计算箱内数量，以纠正错误。\r\n<p><b>注意</b>：有时在您没有删除任何箱内对象的情况下箱内对象会减少，您不必担心，这也许是箱内管理对象被其他管理员从论坛里删除了，您的管理对象也就当然没有了。\r\n<p>&nbsp;\r\n','53',4,2),(54,44,'管理论坛','<p>&nbsp;\r\n<p>要具有管理权，必须具有论坛人事权。\r\n<p>请点击[<a class=goldlink href=\"../mng/mng.php?type=0\">这里</a>]维护。\r\n<a name=mng></a><p>\r\n<ul>\r\n<li>论坛管理</li>\r\n	您可以在这里选择您有管理权的任何论坛进行管理。<br>\r\n	可以修改论坛名称、说明及从新上传论坛图标。<br>\r\n<a name=right></a><p>\r\n<li>权限及状态</li>\r\n	您可以在这里修改论坛的状态，等级，以及权限设置。<br>\r\n	<p>权限说明\r\n	<ul>\r\n	<li>游客权限</li>\r\n	这里设置的权限只对游客有效。\r\n		<ul>\r\n		<li>浏览</li>\r\n		勾选此权限，才能让未注册的用户访问您的论坛，当然，您还必须保证您的论坛等级为普通，未注册用户的等级就是普通。\r\n		</ul>\r\n	<li>用户权限</li>\r\n	这里设置的权限只对等级不小于您论坛等级的注册用户有效，等级太低的普通注册用户无法进入您的论坛。\r\n		<ul>\r\n		<li>浏览</li>\r\n		此权限保证注册用户可以浏览您的论坛。\r\n		<li>发贴</li>\r\n		此权限保证注册用户可以在您的论坛发表帖子。\r\n		<li>回复</li>\r\n		此权限保证注册用户可以在您的论坛回复感兴趣的帖子。\r\n		<li>修改</li>\r\n		此权限保证注册用户可以在您的论坛修改自己发表的帖子或回复。\r\n		</ul>\r\n	</ul>	\r\n<a name=mnger></a><p>\r\n<li>管理员管理</li>\r\n	您在这里可以添加和删除论坛里的其他管理员，并修改他们的权限。\r\n	<p>管理员权限\r\n	<ul>\r\n	<li>浏览</li>\r\n	此权限保证管理员可以浏览论坛的任何内容。\r\n	<li>发贴</li>\r\n	此权限保证管理员可以在论坛可以发表帖子。\r\n	<li>修改</li>\r\n	此权限保证管理员可以在论坛修改任何人的违规帖子或回复的内容以及它们的权限，对普通用户也具有修改权。\r\n	<li>隐藏</li>\r\n	此权限保为保留权限，也许未来使用。\r\n	<li>删除</li>\r\n	此权限保证管理员可以在论坛删除任何违规帖子、回复以及普通注册用户。\r\n	<li><font class=warningc>人事</font></li>\r\n	此权限保证管理员可以在论坛具有论坛管理权。\r\n	</ul>\r\n</ul>','54',0,2),(55,50,'搜索帖子','<p>&nbsp;\r\n<p>这里的[<a class=goldlink href=\"../mng/mng.php?type=2\">帖子搜索</a>]的搜索范围是您具有管理权的论坛；区别于普通用户搜索，这里的搜索还可以查找出被关闭的帖子。\r\n<p>为了方便查找，我们把帖子属性做了如下几个方面的分类：\r\n<ul>\r\n<li>选择论坛及属性</li>\r\n这里列出的目标论坛是您具有管理权限的论坛，您必须选取论坛范围，查找将在您选取的论坛你进行。\r\n属性有三个：\r\n<ul>\r\n<li>状态</li>\r\n有效是指普通注册用户可见的帖子；无效是被其他管理员或您关闭的帖子，普通用户不可见。\r\n<li>类型</li>\r\n类型分为普通和置顶，普通既为一般用户发布的帖子；置顶帖子为永远放置在第一页的帖子，通常为论坛通告，调查等内容的帖子。\r\n<li>修饰</li>\r\n修饰部分是对帖子的分级，对发贴人的奖励或使帖子变得更显眼突出。\r\n</ul>\r\n除了状态您必须选择一类，其他两个当您选择所有就表示忽略这个查找条件。\r\n<br><br>\r\n<li>贴编号或发贴人</li>\r\n这里提供了四类方法限定帖子：\r\n<ul>\r\n<li>帖子编号</li>\r\n您可以同时填写1个或多个帖子编号，方便快速搜索，这些帖子必须在您选取的论坛范围内，否则搜索不到。\r\n<li>用户编号</li>\r\n选取这个选项时最好填写一个用户编号，这将大大缩小搜索范围，加快搜索速度，因为搜索将在您填写的用户所发表的帖子内进行。\r\n<li>用户名</li>\r\n这个选项类似用户编号。\r\n<li>用户名片段</li>\r\n这个方法扩大了搜索范围，不过在您不确定用户名的时候有了一个方便的选择。\r\n</ul>\r\n<br>\r\n<li>帖子关键字</li>\r\n帖子关键字可以搜索到帖子类含有特征字的帖子，比如：填写\"程序设计\"，并选取查询内容，搜索结果将是帖子内容里包含有\"程序设计\"的帖子，所以，填写的越特别，结果集越小。\r\n<p>技巧：如果您想搜索内容有这样一句话 ：\"动态网页程序的设计是一门集合数据库，网页制作的技术。\"的帖子，您可以这样填写\"程序%数据库\"，这里的\"%\"代表任意多个任意字符。\r\n您可以选择在标题内搜索和在内容内搜索两个选项，标题查找将快于内容查找。\r\n<li>帖子附加属性</li>\r\n附加属性有三个，它们同时只能使用1个：\r\n<ul>\r\n<li>时间范围</li>\r\n\"从 - 到\" 方式时间范围限定了帖子的发表时间；秒内方式对查找最新帖子很有效。\r\n<li>附件</li>\r\n附件方式可以很方便的查找出含有附件的帖子。\r\n<li>阅读权限</li>\r\n阅读权限查出具有阅读权限的帖子很方便。\r\n</ul>\r\n<br>\r\n<li>权限</li>\r\n对于权限的介绍您可查看[<a class=goldlink href=\"?helpid=51#right\">管理帖子帮助</a>]；\r\n<p>您可以对权限进行组合查找：\r\n<ul>\r\n<li>取权相等</li>\r\n顾名思义，此选项就是查出帖子权限等于您选取的权限的帖子。\r\n<li>取具有任意选择权限</li>\r\n此选项是一个或操作，是查出帖子中只要具有您选取的任意一个权限就为条件成立。\r\n<li>取反</li>\r\n这个条件为以上两个选项取反。\r\n</ul>\r\n</ul>','55',1,2),(56,52,'管理回复','<p>&nbsp;\r\n<p>回复管理和帖子管理类似，不过回复的属性要少于帖子；\r\n<p>被加入管理的回复我们可以把他们分类存储入相关的管理箱，这里[<a class=goldlink href=\"../mng/mng.php?type=7\">管理维护</a>]为您提供了创建和删除自定义回复管理箱的方法；\r\n<p>我们有两个方法找到被加入管理的回复：\r\n<ul>\r\n<li>1。选择管理箱</li>\r\n最新加入的回复都在id为2的管理箱内，也就是管理箱选择下拉框排在第一位的管理箱；如果您想管理哪一个管理箱内的回复，您可直接选择管理箱即可列出箱内回复，方便管理。\r\n<li>2。搜索加入管理的回复</li>\r\n如果您只记得被加入管理回复的某些特征，比如，回复人，回复时间，或者回复权限等内容您可选择管理箱选择下拉框最后一个选项[<a class=goldlink href=\"../mng/mng.php?type=3&boxid=0\">搜索</a>]及能方便搜索到您想管理的回复；<font class=warningc>注意</font>：这里的搜索范围仅是您加入管理的所有回复或某个或几个管理箱内的回复。\r\n</ul>\r\n<br>\r\n<p>找到您想管理的回复后，就可具体管理回复的如下内容：\r\n<ul>\r\n<li>修改注释</li>\r\n这里可以保存您对回复的个人看法，只是留给自己看的，避免忘记。<br><br>\r\n<li>查看其他管理员对此贴的意见或给其他管理员留言</li>\r\n这里可以查看到其他管理员对回复的管理意见，或者您可以留下自己的管理意见给其他管理员参考。<br><br>\r\n<li>回复管理</li>\r\n<ul>\r\n<li>编辑</li>\r\n点此连接就直接进入回复编辑页面，方便修改回复阅读权、内容、添加和删除附件等等回复可以修改的内容，只要您具有论坛的管理修改权，您就可以修改论坛内的任何回复。<br><br>\r\n<li>删除</li>\r\n删除回复，包含内容，附件，这会自动发送通知消息给发贴人；为了避免误删除，这里设置了双重选择，并添加了加亮提示。<br><br>\r\n<li>状态修改</li>\r\n修改状态，当状态设置为不是有效时，回复对普通用户不可见也不可编辑。<br><br>\r\n<li>迁移管理箱</li>\r\n您可以把回复移动到自己认为合适的管理箱，方便以后查阅管理。<br><br>\r\n<li>修改权限</li>\r\n勾选权限修改就可打开权限修改功能，[ V ] 表示赋予权；[ X ] 表示撤消权。\r\n<a name=right></a>\r\n<p>回复权限分下面三类：\r\n<ul>\r\n<li>游客</li>\r\n<ul>\r\n<li>浏览</li>\r\n未使用，系统保留。\r\n</ul>\r\n<li>用户</li>\r\n<ul>\r\n<li>浏览</li>\r\n未使用，系统保留。\r\n<li>显示</li>\r\n此权限为回复人管理自己回复的权限，他们可以在编辑回复界面内控制自己回复是否对普通用户显示，管理员最好不要管理此权限，因为发贴人自己可改变此设置。\r\n<li>修改</li>\r\n管理员可以控制回复是否可以修改，这只对发贴人有效，对具有论坛修改权的管理员无效。\r\n</ul>\r\n<li>管理</li>\r\n<ul>\r\n<li>显示</li>\r\n此权限对应上面用户的显示权，不过此权限为管理员控制回复显示的权限，对普通论坛注册用户有效。\r\n</ul>\r\n</ul>\r\n<br>\r\n<li>管理后放弃</li>\r\n选择此项会把回复从您的管理箱内删除，但不会从论坛内删除，如您还想管理这个回复，可把回复再次加入管理。\r\n</ul>\r\n</ul>','56',0,2),(57,52,'搜索回复','<p>&nbsp;\r\n<p>回复搜索和帖子搜索类似，不过回复的属性要少于帖子；\r\n<p>这里的[<a class=goldlink href=\"../mng/mng.php?type=4\">回复搜索</a>]的搜索范围是您具有管理权的论坛；区别于普通用户搜索，这里的搜索还可以查找出被关闭的回复。\r\n<p>为了方便查找，我们把回复属性做了如下几个方面的分类：\r\n<ul>\r\n<li>选择论坛</li>\r\n这里列出的目标论坛是您具有管理权限的论坛，您必须选取论坛范围，查找将在您选取的论坛你进行。\r\n<br><br>\r\n<li>状态</li>\r\n有效是指普通注册用户可见的回复；无效是被其他管理员或您关闭的回复，普通用户不可见。\r\n<br><br>\r\n<li>贴编号或发贴人</li>\r\n这里提供了四类方法限定回复：\r\n<ul>\r\n<li>回复编号</li>\r\n您可以同时填写1个或多个回复编号，方便快速搜索，这些回复必须在您选取的论坛范围内，否则搜索不到。\r\n<li>用户编号</li>\r\n选取这个选项时最好填写一个用户编号，这将大大缩小搜索范围，加快搜索速度，因为搜索将在您填写的用户所发表的回复内进行。\r\n<li>用户名</li>\r\n这个选项类似用户编号，不过这里填写用户名。\r\n<li>用户名片段</li>\r\n这个方法扩大了搜索范围，不过在您不确定用户名的时候有了一个方便的选择。\r\n</ul>\r\n<br>\r\n<li>查找字串</li>\r\n查找字串就是回复关键字，可以搜索到回复类含有特征字的回复，比如：填写\"程序设计\"，并选取查询内容，搜索结果将是回复内容里包含有\"程序设计\"的回复，所以，填写的越特别，结果集越小。\r\n<p>技巧：如果您想搜索内容有这样一句话 ：\"动态网页程序的设计是一门集合数据库，网页制作的技术。\"的回复，您可以这样填写\"程序%数据库\"，这里的\"%\"代表任意多个任意字符。\r\n您可以选择在标题内搜索和在内容内搜索两个选项，标题查找将快于内容查找。\r\n<li>回复附加属性</li>\r\n附加属性有两个，它们同时只能使用1个：\r\n<ul>\r\n<li>时间范围</li>\r\n\"从 - 到\" 方式时间范围限定了回复的发表时间；秒内方式对查找最新回复很有效。\r\n<li>附件</li>\r\n附件方式可以很方便的查找出含有附件的回复。\r\n</ul>\r\n<br>\r\n<li>权限</li>\r\n对于权限的介绍您可查看[<a class=goldlink href=\"?helpid=51#right\">管理回复帮助</a>]；\r\n<p>您可以对权限进行组合查找：\r\n<ul>\r\n<li>取权相等</li>\r\n顾名思义，此选项就是查出回复权限等于您选取的权限的回复。\r\n<li>取具有任意选择权限</li>\r\n此选项是一个或操作，是查出回复中只要具有您选取的任意一个权限就为条件成立。\r\n<li>取反</li>\r\n这个条件为以上两个选项取反。\r\n</ul>\r\n</ul>','57',1,2),(61,41,'快速浏览','','41#view',0,1),(62,41,'论坛徽章','','41#bgs',3,1);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `thelp` ENABLE KEYS */;
+
+--
+-- Table structure for table `titem`
+--
+
+DROP TABLE IF EXISTS `titem`;
+CREATE TABLE `titem` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(1000) default NULL COMMENT '标题',
+  `href` mediumtext COMMENT '相关链接',
+  `lan` varchar(200) default NULL COMMENT '帖内代码包类型',
+  `content` mediumtext COMMENT '内容',
+  `ctime` datetime default NULL COMMENT '创建时间',
+  `atime` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT '修改时间',
+  `uid` int(11) NOT NULL default '0' COMMENT '创建人',
+  `gid` int(11) NOT NULL default '0' COMMENT '论坛号',
+  `rnum` int(11) NOT NULL default '0' COMMENT '回复数量',
+  `drnu` int(11) NOT NULL default '0' COMMENT '无效回复数',
+  `vnum` int(11) NOT NULL default '0' COMMENT '访问数量',
+  `luser` varchar(50) default NULL COMMENT '最后回复人',
+  `luid` int(11) NOT NULL default '0' COMMENT '最后回复人id',
+  `ltitle` varchar(500) default NULL COMMENT '最后回复内容',
+  `ltime` datetime default NULL COMMENT '最后回复时间',
+  `lrid` int(11) NOT NULL default '0' COMMENT '最后回复id',
+  `lrrg` int(11) NOT NULL default '16777215' COMMENT '最后回复的权限',
+  `rdnum` int(11) NOT NULL default '0' COMMENT '阅读权限',
+  `rigt` int(11) NOT NULL default '2147483647' COMMENT '帖子权限',
+  `stat` enum('E','D') NOT NULL default 'E' COMMENT '帖子状态',
+  `cuser` varchar(100) default NULL COMMENT '最后修改人',
+  `cuid` int(11) NOT NULL default '0' COMMENT '最后修改人id',
+  `lctm` datetime default NULL COMMENT '最后修改时间',
+  `hadd` char(1) NOT NULL default '0' COMMENT '是否有附件''0'' 无',
+  `type` int(11) NOT NULL default '1' COMMENT '帖子类型 1普通2置顶3其他',
+  `deco` int(11) NOT NULL default '1' COMMENT '修饰 1普通2精华',
+  `mngs` varchar(2000) default NULL COMMENT '其他管理员意见',
+  `lmng` int(11) NOT NULL default '0' COMMENT '最后管理人',
+  `lmtm` datetime default NULL COMMENT '管理员最后管理时间',
+  `inmg` int(11) NOT NULL default '0' COMMENT '当前修改状态 0 无修改，1 正在被修改',
+  `chgt` datetime default NULL COMMENT '最后被锁修改时间',
+  `suvn` int(11) NOT NULL default '0' COMMENT '调查表数量',
+  `alts` int(6) NOT NULL default '0' COMMENT '调查已经修改标记',
+  `tims` datetime default NULL COMMENT '调查表修改时间',
+  `adnu` int(11) NOT NULL default '0' COMMENT '总附件数量',
+  `vdoi` int(11) NOT NULL default '0' COMMENT '视频附件数量',
+  `adoi` int(11) NOT NULL default '0' COMMENT '音乐附件数量',
+  `athi` int(11) NOT NULL default '0' COMMENT '其它类型附件数量',
+  `pici` int(11) NOT NULL default '0' COMMENT '图片附件数量',
+  `m` int(11) NOT NULL default '0' COMMENT '临时状态标记',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `sti` (`gid`,`stat`,`ctime`,`id`),
+  KEY `self` (`uid`,`ctime`),
+  KEY `gl` (`gid`,`stat`,`type`,`ltime`),
+  KEY `s1` (`gid`,`uid`,`ctime`),
+  KEY `gp` (`gid`,`stat`,`adnu`,`rigt`),
+  KEY `gut` (`gid`,`stat`,`uid`,`ctime`,`rigt`),
+  KEY `gup` (`gid`,`stat`,`uid`,`adnu`,`rigt`),
+  KEY `gt` (`gid`,`stat`,`ctime`),
+  KEY `ggt` (`gid`,`stat`,`rigt`,`ctime`),
+  KEY `suat` (`gid`,`stat`,`uid`,`adnu`,`ctime`),
+  KEY `sut` (`gid`,`stat`,`uid`,`ctime`),
+  KEY `sati` (`gid`,`stat`,`adnu`,`ctime`,`id`),
+  KEY `si` (`gid`,`stat`,`id`),
+  KEY `m` (`m`,`ctime`),
+  FULLTEXT KEY `tc` (`title`,`content`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='帖子';
+
+--
+-- Dumping data for table `titem`
+--
+
+
+/*!40000 ALTER TABLE `titem` DISABLE KEYS */;
+LOCK TABLES `titem` WRITE;
+INSERT INTO `titem` VALUES (1,'论坛编辑功能例子',',\"a../uploads/11\",\"A../uploads/10\",\"a../uploads/11\",\"A../uploads/10\"','j','\r\n\r\n--- <b>文本</b> ----------------------------------\r\n\r\n这是论坛帖子功能演示帖子，您可以通过编辑内容查看帖子编码。 \r\n\r\n普通文本，可以写入任何文本字符和标点。甚至可以用HTML编码输入特别符号如输入 &#38;hearts; 得到 &#9829; 符号。\r\n\r\n普通模式段落。\r\n\r\n<p align=center>居中模式段落。</p>\r\n\r\n<p align=right>靠右模式段落。</p>\r\n\r\n文本风格可设置为<b>粗体文本</b>、<i>斜体文本</i>、<u>带有下画线文本</u>、<s>删除线文本</s>；可选取不同<font color=#ff0000><font style=background-color:#ffff00>颜色和背景颜色</font></font>修饰文本。\r\n\r\n为了丰富帖子/回复的表达形式，帖子可以插入连接、图片、多媒体等内容。\r\n\r\n下面就是这些形式的使用效果：\r\n\r\n--- <b>连接类</b> --------------------------------\r\n\r\n连接： \r\n<a href=\"http://www.eieusoft.com\">http://www.eieusoft.com</a>\r\n\r\n邮件：\r\n<a href=\"mailto:info@eieusoft.com\">info@eieusoft.com</a>\r\n\r\n表情：\r\n<img src=\"../icons/em/0/8.gif\">\r\n\r\n图片： \r\n<img src=\"../images/t1.jpg\">\r\n\r\n&nbsp;--- <b>多媒体类</b> ------------------------------\r\n\r\nmp3：\r\n<a>例子音乐</a>\r\n\r\nflv媒体：\r\n<a>例子视频</a>\r\n\r\n网络视频：\r\n优酷、爆米花等视频网站提供的视频可以发布到帖子中来。具体方法可以查看帮助内容。\r\n\r\n--- <b>代码类</b> --------------------------------&nbsp; \r\n\r\n目前版本支持 HTML、JAVASCRIPT、CSS 的代码解释。\r\n<textarea>/*---\r\nJAVASCRIPT语言\r\n函数例子\r\n---*/\r\nfunction pro(){\r\n	//声明变量\r\n	var i,o,str=\"\"\r\n	//实现代码\r\n	for(i=0;i<100;i++){\r\n		o=0\r\n		while(o<100)str+=i+\":\"+o++\r\n	}\r\n	return str\r\n}</textarea>\r\n--- <b>附件类</b> -------------------------------\r\n\r\n用户可以为自己的帖子上传附件，任何类型的文件都可以当作附件上传。并把这些附件插入到帖子文本内容中，每个被插入文本内容的附件将不再显示在帖子附件列表中；也就是说，没有被插入到文本内容中的帖子附件都将显示在帖子附件列表中，这保证了帖子的每一个附件会在帖子内会至少显示一次。\r\n\r\n插入附件图片：\r\n<img src=\"../uploads/1.jpg\">\r\n\r\n附件音频：\r\n<a>音乐</a>\r\n\r\n附件视频：\r\n<a>视频</a>\r\n\r\n普通附件：\r\n<a href=\"../uploads/9\">附件</a>\r\n\r\n详细的帖子标签写法您可查阅 帮助->用户帮助->如何发帖 内容。\r\n','2014-12-08 16:23:08','2014-12-08 08:23:08',1,1,0,0,0,'superuser',1,'回复引用是可以嵌套表示的，最里层的内容是最初的应用，依次向外，最外层的引用是最后，也就是最新的引用内容。入下：\r\n\r\n[rpc][rps]2,2,例子用户[/rps]\r\n\r\n[rpc][rps]1,2,例子用户[/rps]\r\n\r\n最初的引用内容。\r\n\r\n[/','2014-12-08 16:23:08',0,0,0,2147483647,'E',NULL,0,NULL,'0',1,1,NULL,0,NULL,0,NULL,0,0,NULL,9,1,1,1,6,0);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `titem` ENABLE KEYS */;
+
+--
+-- Table structure for table `tmng`
+--
+
+DROP TABLE IF EXISTS `tmng`;
+CREATE TABLE `tmng` (
+  `uid` int(11) NOT NULL default '0' COMMENT '管理员id',
+  `type` int(11) NOT NULL default '0' COMMENT '数据类型 0帖子，1回复，2用户，5.帖子盒类型，6.回复盒类型，7.用户盒类型，9,10,11管理员评论',
+  `box` int(11) NOT NULL default '0' COMMENT '1所有，0搜索，2新加',
+  `num` int(11) NOT NULL default '0' COMMENT '数值，帖号，回复号，用户id',
+  `ctime` datetime default NULL COMMENT '加入时间',
+  `ltime` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  `comm` blob COMMENT '描述',
+  UNIQUE KEY `se` (`uid`,`type`,`num`),
+  UNIQUE KEY `tn` (`type`,`num`,`uid`),
+  KEY `ind` (`uid`,`type`,`box`,`ctime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='管理数据';
+
+--
+-- Dumping data for table `tmng`
+--
+
+
+/*!40000 ALTER TABLE `tmng` DISABLE KEYS */;
+LOCK TABLES `tmng` WRITE;
+INSERT INTO `tmng` VALUES (1,5,1,2,'2014-12-08 16:23:08','2014-12-08 08:23:08','新加帖子'),(1,5,0,3,'2014-12-08 16:23:08','2014-12-08 08:23:08','帖子管理盒例子'),(1,6,0,2,'2014-12-08 16:23:08','2014-12-08 08:23:08','新加回复'),(1,7,0,2,'2014-12-08 16:23:08','2014-12-08 08:23:08','新加用户'),(1,0,2,1,'2014-12-08 16:23:08','2014-12-08 08:23:08','管理帖子例子');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `tmng` ENABLE KEYS */;
+
+--
+-- Table structure for table `trecv`
+--
+
+DROP TABLE IF EXISTS `trecv`;
+CREATE TABLE `trecv` (
+  `id` int(11) NOT NULL auto_increment,
+  `t` int(8) NOT NULL COMMENT '类型',
+  `k1` int(11) default NULL,
+  `k2` int(11) default NULL,
+  `c` varchar(300) default NULL COMMENT '文本段',
+  `ct` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `ic` (`t`,`c`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='保留内容';
+
+--
+-- Dumping data for table `trecv`
+--
+
+
+/*!40000 ALTER TABLE `trecv` DISABLE KEYS */;
+LOCK TABLES `trecv` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `trecv` ENABLE KEYS */;
+
+--
+-- Table structure for table `trpl`
+--
+
+DROP TABLE IF EXISTS `trpl`;
+CREATE TABLE `trpl` (
+  `id` int(11) NOT NULL auto_increment,
+  `uid` int(11) NOT NULL COMMENT '发布人id',
+  `iid` int(11) NOT NULL default '0' COMMENT '属于帖子编号',
+  `pos` int(11) NOT NULL default '0' COMMENT '回复在帖子中的显示位置',
+  `title` varchar(1000) default NULL COMMENT '标题',
+  `href` mediumtext COMMENT '相关链接',
+  `lan` varchar(200) default NULL COMMENT '帖内代码包类型',
+  `content` mediumtext COMMENT '内容',
+  `ctime` datetime default NULL COMMENT '创建时间',
+  `atime` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT '时间印',
+  `cuser` varchar(100) default NULL COMMENT '最后修改人',
+  `cuid` int(11) NOT NULL default '0' COMMENT '最后修改人id',
+  `lctm` datetime default NULL COMMENT '最后修改时间',
+  `hadd` char(1) NOT NULL default '0' COMMENT '是否有附件 ''0''无',
+  `adnu` int(11) NOT NULL default '0' COMMENT '附件数量',
+  `rigt` int(11) NOT NULL default '2147483647' COMMENT '是否显示内容 0不显示',
+  `gid` int(11) NOT NULL default '0' COMMENT '所属论坛id',
+  `stat` enum('E','D','R') NOT NULL default 'E' COMMENT 'R del',
+  `lmng` int(11) NOT NULL default '0' COMMENT '最后管理人',
+  `lmtm` datetime default NULL COMMENT '最后管理时间',
+  `mngs` varchar(2000) default NULL COMMENT '其他管理员留言',
+  `stime` decimal(14,4) NOT NULL default '0.0000' COMMENT '发表毫秒时间',
+  `m` int(11) NOT NULL default '0' COMMENT '临时状态标记',
+  PRIMARY KEY  (`id`),
+  KEY `gp` (`gid`,`stat`,`adnu`),
+  KEY `ut` (`uid`,`ctime`),
+  KEY `gup` (`gid`,`stat`,`uid`,`adnu`),
+  KEY `gut` (`gid`,`stat`,`uid`,`ctime`),
+  KEY `gt` (`gid`,`stat`,`ctime`),
+  KEY `ggt` (`gid`,`stat`,`rigt`,`ctime`),
+  KEY `iis` (`iid`,`stat`,`pos`),
+  KEY `si` (`gid`,`stat`,`id`),
+  KEY `suat` (`gid`,`stat`,`uid`,`adnu`,`ctime`),
+  KEY `sut` (`gid`,`stat`,`uid`,`ctime`),
+  KEY `sati` (`gid`,`stat`,`adnu`,`ctime`,`id`),
+  KEY `sti` (`gid`,`stat`,`ctime`,`id`),
+  FULLTEXT KEY `tc` (`content`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='回复';
+
+--
+-- Dumping data for table `trpl`
+--
+
+
+/*!40000 ALTER TABLE `trpl` DISABLE KEYS */;
+LOCK TABLES `trpl` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `trpl` ENABLE KEYS */;
+
+--
+-- Table structure for table `trsc`
+--
+
+DROP TABLE IF EXISTS `trsc`;
+CREATE TABLE `trsc` (
+  `id` int(11) NOT NULL auto_increment,
+  `iid` int(11) NOT NULL default '0' COMMENT '所属帖子',
+  `rid` int(11) NOT NULL default '0' COMMENT '所属回复',
+  `uid` int(11) NOT NULL default '0' COMMENT '所属用户',
+  `pric` int(11) NOT NULL default '0' COMMENT '价格',
+  `used` int(1) NOT NULL default '0' COMMENT '附件是否已经被内容使用',
+  `type` varchar(50) default NULL COMMENT '附件类型',
+  `path` varchar(20) default NULL COMMENT '存储目录',
+  `name` varchar(1000) default NULL COMMENT '原文件名',
+  `ext` varchar(1000) default NULL COMMENT '扩展名',
+  `time` datetime default NULL COMMENT '上传时间',
+  `size` int(11) NOT NULL default '0' COMMENT '大小',
+  `comment` blob COMMENT '附件说明',
+  PRIMARY KEY  (`id`),
+  KEY `iid` USING BTREE (`iid`,`used`),
+  KEY `rid` USING BTREE (`rid`,`used`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='上传资源数据';
+
+--
+-- Dumping data for table `trsc`
+--
+
+
+/*!40000 ALTER TABLE `trsc` DISABLE KEYS */;
+LOCK TABLES `trsc` WRITE;
+INSERT INTO `trsc` VALUES (3,1,0,1,0,0,'i/jpg','0919','sample3.jpg','jpg','2014-12-08 16:23:12',13866,'例子图片3'),(4,1,0,1,0,0,'i/jpg','0919','sample4.jpg','jpg','2014-12-08 16:23:13',12366,'例子图片4'),(5,1,0,1,0,0,'i/jpg','0919','sample5.jpg','jpg','2014-12-08 16:23:14',10157,'例子图片5'),(6,1,0,1,0,0,'i/jpg','0919','sample6.jpg','jpg','2014-12-08 16:23:15',10070,'例子图片6'),(7,1,0,1,0,0,'i/jpg','0919','sample7.jpg','jpg','2014-12-08 16:23:16',8165,'例子图片7'),(9,1,0,1,0,1,'text/plain','0919','文本附件.txt','txt','2014-12-08 16:23:18',33,'文本类附件'),(10,1,0,1,0,1,'v/flv','0919','sample.flv','flv','2014-12-08 16:23:19',765891,'视频例子'),(11,1,0,1,0,1,'a/mp3','0919','sample.mp3','mp3','2014-12-08 16:23:20',446539,'MP3音乐例子'),(1,1,0,1,0,1,'i/jpg','0919','sample1.jpg','jpg','2014-12-08 16:23:10',14252,'例子图片1');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `trsc` ENABLE KEYS */;
+
+--
+-- Table structure for table `tspu`
+--
+
+DROP TABLE IF EXISTS `tspu`;
+CREATE TABLE `tspu` (
+  `uid` int(11) NOT NULL,
+  `gid` int(11) NOT NULL default '0',
+  `level` int(11) NOT NULL default '99',
+  `rigt` int(11) NOT NULL default '2147483647' COMMENT '管理权限',
+  `ctime` datetime NOT NULL COMMENT '成为管理时间',
+  UNIQUE KEY `unind` (`uid`,`gid`),
+  KEY `gid` (`gid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='论坛管理员';
+
+--
+-- Dumping data for table `tspu`
+--
+
+
+/*!40000 ALTER TABLE `tspu` DISABLE KEYS */;
+LOCK TABLES `tspu` WRITE;
+INSERT INTO `tspu` VALUES (1,1,99,2147483647,'2014-12-08 16:23:09'),(1,0,99,2147483647,'2014-12-08 16:23:09'),(1,2,99,2147483647,'2014-12-08 16:23:09'),(1,3,99,2147483647,'2014-12-08 16:23:09'),(1,4,99,2147483647,'2014-12-08 16:23:09'),(1,5,99,2147483647,'2014-12-08 16:23:09'),(1,6,99,2147483647,'2014-12-08 16:23:09'),(1,7,99,2147483647,'2014-12-08 16:23:09');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `tspu` ENABLE KEYS */;
+
+--
+-- Table structure for table `tsubs`
+--
+
+DROP TABLE IF EXISTS `tsubs`;
+CREATE TABLE `tsubs` (
+  `uid` int(11) NOT NULL default '0' COMMENT '用户id',
+  `iid` int(11) NOT NULL default '0' COMMENT '帖子id',
+  `ctime` datetime default NULL COMMENT '订阅时间',
+  `comm` blob COMMENT '订阅描述',
+  UNIQUE KEY `id` (`uid`,`iid`),
+  KEY `sort` (`uid`,`ctime`),
+  KEY `iid` (`iid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='订阅';
+
+--
+-- Dumping data for table `tsubs`
+--
+
+
+/*!40000 ALTER TABLE `tsubs` DISABLE KEYS */;
+LOCK TABLES `tsubs` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `tsubs` ENABLE KEYS */;
+
+--
+-- Table structure for table `tuser`
+--
+
+DROP TABLE IF EXISTS `tuser`;
+CREATE TABLE `tuser` (
+  `id` int(11) NOT NULL auto_increment COMMENT '用户ID',
+  `name` varchar(120) default NULL COMMENT '论坛名',
+  `face` varchar(200) default NULL COMMENT '头像文件名',
+  `pass` varbinary(600) default NULL COMMENT '密码',
+  `pkey` varbinary(600) default NULL COMMENT '加密字符串',
+  `sex` int(1) NOT NULL default '1' COMMENT '性别1 男,0女',
+  `bhday` date default NULL COMMENT '生日',
+  `rdnum` int(11) NOT NULL default '0' COMMENT '阅读权限',
+  `money` int(11) NOT NULL default '0' COMMENT '钱数',
+  `inte` int(11) NOT NULL default '0' COMMENT '积分',
+  `faceid` int(11) NOT NULL default '0' COMMENT '头像',
+  `ctime` datetime default NULL COMMENT '注册时间',
+  `level` int(11) NOT NULL default '1' COMMENT '等级',
+  `inum` int(11) NOT NULL default '0' COMMENT '有效帖子数量',
+  `rnum` int(11) NOT NULL default '0' COMMENT '有效回复数量',
+  `fnum` int(11) NOT NULL default '0' COMMENT '好友数量',
+  `numf` int(11) default '0' COMMENT '拒绝消息人数',
+  `msgt` int(1) default '1' COMMENT '接受消息方式：1使用拒绝消息列表；0只接受朋友消息',
+  `sbnu` int(11) NOT NULL default '0' COMMENT '订阅帖子数量',
+  `ontime` int(11) NOT NULL default '0' COMMENT '在线分钟数',
+  `ltime` datetime default NULL COMMENT '最后访问时间',
+  `rigt` int(11) NOT NULL default '638' COMMENT '用户权限',
+  `stat` enum('E','D') NOT NULL default 'E' COMMENT '用户状态 E=Enable,D=Disable',
+  `qq` int(11) NOT NULL default '0' COMMENT 'QQ号',
+  `yahoo` varchar(100) default NULL COMMENT 'yahoo messager号',
+  `msn` varchar(100) default NULL COMMENT 'msn号',
+  `ww` varchar(100) default NULL COMMENT '淘宝旺旺号',
+  `email` varchar(100) default NULL COMMENT 'email号码',
+  `http` blob COMMENT '个人主页地址',
+  `ptth` blob COMMENT 'URL编码的http地址',
+  `sign` blob COMMENT '签名',
+  `phon` varchar(100) default NULL COMMENT '联系电话',
+  `info` blob COMMENT '自我介绍',
+  `rsize` int(11) NOT NULL default '20' COMMENT '回复页尺寸',
+  `isize` int(11) NOT NULL default '30' COMMENT '论坛帖子页面尺寸',
+  `newt` int(11) NOT NULL default '26' COMMENT '最新帖子时限（小时）',
+  `ip` varchar(20) default NULL COMMENT '用户最后登陆ip',
+  `rmnu` int(11) NOT NULL default '1' COMMENT '接受消息数',
+  `smnu` int(11) NOT NULL default '0' COMMENT '发送消息数',
+  `dmnu` int(11) NOT NULL default '0' COMMENT '删除消息数',
+  `nmnu` int(11) NOT NULL default '1' COMMENT '未读新消息数',
+  `maxr` int(11) NOT NULL default '600' COMMENT '最多消息数',
+  `maxd` int(11) NOT NULL default '500' COMMENT '最多删除消息数',
+  `maxs` int(11) NOT NULL default '500' COMMENT '最多已发送消息数',
+  `maxsb` int(11) NOT NULL default '500' COMMENT '最大订阅数量',
+  `maxf` int(11) NOT NULL default '50' COMMENT '最多朋友数量',
+  `irgt` int(11) NOT NULL default '65535' COMMENT '发新贴的默认权限 ffff位为权限，ffff0000位为发贴阅读权限',
+  `rrgt` int(11) NOT NULL default '65535' COMMENT '发新回复的默认权限 ffff位为权限，ffff0000位为发贴阅读权限',
+  `styl` int(11) NOT NULL default '0' COMMENT '界面风格',
+  `deli` int(11) NOT NULL default '0' COMMENT '被删除贴数',
+  `delr` int(11) NOT NULL default '0' COMMENT '被删除回复数',
+  `dnum` int(11) NOT NULL default '0' COMMENT '无效帖数',
+  `drnu` int(11) NOT NULL default '0' COMMENT '无效回复数',
+  `lmng` int(11) NOT NULL default '4' COMMENT '最后管理人',
+  `lmtm` datetime default NULL COMMENT '最后管理时间',
+  `mngs` blob COMMENT '其他管理员评说',
+  `srgt` int(6) NOT NULL default '0' COMMENT '管理员管理用户权限',
+  `inmg` int(4) NOT NULL default '0' COMMENT '管理锁',
+  `chgt` datetime default NULL COMMENT '最后锁定时间',
+  `gmnu` int(4) NOT NULL default '0' COMMENT '管理论坛数量',
+  `getp` int(4) NOT NULL default '131073' COMMENT '用户通过邮件获取密码时间间隔(天)，低16位为时间间隔，中8位为间隔内最大获取次数，高8位间隔内已经使用的获取次数',
+  `gptm` datetime default NULL COMMENT '获取密码时间间隔初始时间',
+  `q1` varchar(200) default NULL COMMENT '密码保护问题1',
+  `a1` varchar(200) default NULL COMMENT '密码保护问题1答案',
+  `q2` varchar(200) default NULL COMMENT '密码保护问题2',
+  `a2` varchar(200) default NULL COMMENT '密码保护问题2答案',
+  `q3` varchar(200) default NULL COMMENT '密码保护问题3',
+  `a3` varchar(200) default NULL COMMENT '密码保护问题3答案',
+  `bgs` int(4) NOT NULL default '0' COMMENT '获得徽章数量',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `mail` (`email`),
+  KEY `ctime` (`ctime`),
+  KEY `si` (`sex`,`ctime`,`rigt`,`stat`,`level`,`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='注册用户';
+
+--
+-- Dumping data for table `tuser`
+--
+
+
+/*!40000 ALTER TABLE `tuser` DISABLE KEYS */;
+LOCK TABLES `tuser` WRITE;
+INSERT INTO `tuser` VALUES (1,'superuser','sys/23.gif','353535353535','000000000000',1,'1955-01-01',255,0,0,0,'2014-12-08 16:23:09',6,1,0,0,0,1,0,0,NULL,2147483647,'E',0,NULL,NULL,NULL,'email@example.com',NULL,NULL,'论坛天字第一号管理员。',NULL,NULL,20,30,26,NULL,1,0,0,1,600,500,500,500,50,65535,65535,0,0,0,0,0,4,NULL,NULL,2147483647,0,NULL,8,131073,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `tuser` ENABLE KEYS */;
+
+--
+-- Dumping routines for database 'install_forum_dbname'
+--
+DELIMITER ;;
+/*!50003 DROP PROCEDURE IF EXISTS `i` */;;
+/*!50003 SET SESSION SQL_MODE="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER"*/;;
+/*!50003 CREATE*/  /*!50003 PROCEDURE `i`(M INT,U INT,I INT)
+    COMMENT '帖子查询过程'
+select i.*,
+g.stat as ge,g.rigt as gr,g.name as gn,g.level as gl,g.pid,
+u.name,u.qq,u.ww,u.yahoo,u.sign,u.sex,u.inum,u.rnum as urnu,u.rdnum as urd,u.inte,u.msn,u.face,u.level,u.ctime as uct,u.ltime,u.money,u.ontime,u.level as ul,u.rigt as ur,
+z.stat as zs,z.level as zl,z.rigt as zr,z.rdnum as zrd,
+(select s.rigt from tspu as s use index(unind) where M!=0 and s.uid=U and i.gid=s.gid)as sr,
+(select GROUP_CONCAT("[\"",concat_ws("\",\"",id,substr(type,1,5),size,time,name),"\"]")from trsc as c use index(iid) where c.iid=i.id and c.used=0 group by c.iid) as ats,
+(select GROUP_CONCAT("\"",concat_ws("\",\"",bg,n),"\"")from bgs as b use index(ho) where b.uid=i.uid and b.r=0) as bg
+from titem as i
+left join tgup as g on i.gid=g.id
+left join tuser as u on i.uid=u.id
+left join tuser as z on z.id=U
+where i.id=I */;;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE*/;;
+/*!50003 DROP PROCEDURE IF EXISTS `r` */;;
+/*!50003 SET SESSION SQL_MODE="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER"*/;;
+/*!50003 CREATE*/  /*!50003 PROCEDURE `r`(I INT,P INT,X INT)
+    COMMENT '回复查询过程'
+begin
+set SQL_SELECT_LIMIT=X;
+
+select t1.*,
+t2.name,t2.qq,t2.ww,t2.yahoo,t2.sign,t2.sex,t2.inum,t2.rnum,t2.rdnum,t2.inte,t2.msn,t2.face,t2.level,t2.ctime as uct,t2.ltime,t2.inum,t2.rnum,t2.ltime,t2.money,t2.ontime,t2.rigt as ur,
+
+(select GROUP_CONCAT("[\"",concat_ws("\",\"",id,substr(type,1,5),size,time,name),"\"]")
+from trsc as c use index(rid) where c.rid=t1.id and c.used=0 group by c.rid) as ats,
+
+(select GROUP_CONCAT("\"",concat_ws("\",\"",bg,n),"\"")
+from bgs as b use index(ho) where b.uid=t1.uid and b.r=0 group by b.uid) as bg
+
+from trpl as t1 force index(iis)
+left join tuser as t2 on t1.uid=t2.id 
+where t1.iid=I and t1.stat='E' and t1.pos>(P-1)*X;
+
+set SQL_SELECT_LIMIT=DEFAULT;
+END */;;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE*/;;
+/*!50003 DROP PROCEDURE IF EXISTS `z` */;;
+/*!50003 SET SESSION SQL_MODE="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER"*/;;
+/*!50003 CREATE*/  /*!50003 PROCEDURE `z`(I INT,U INT)
+    COMMENT '附件查询过程'
+select a.size as s,a.time as lt,a.path as p,a.name as n,a.ext as e,a.type as t,a.uid as uu,a.iid,a.rid,
+b.stat as rs,b.uid as ru,b.rigt as rr,
+f.rigt as rur,
+c.stat as iss,c.rdnum as ird,c.rigt as ir,c.uid as iu,
+h.rigt as iur,
+d.stat as gs,d.level as gl,d.rigt as gr,
+i.rigt as ur,i.stat as us,
+e.rigt as spr
+from trsc as a
+left join trpl as b on a.rid=b.id
+left join tuser as f on b.uid=f.id
+left join titem as c on if(a.iid>0,a.iid,b.iid)=c.id
+left join tuser as h on c.uid=h.id
+left join tgup as d on c.gid=d.id
+left join tuser as i on i.id=U
+left join tspu as e on c.gid=e.gid and e.uid=U
+where a.id=I */;;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE*/;;
+DELIMITER ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+

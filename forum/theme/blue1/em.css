@@ -1,0 +1,55 @@
+body{
+font-size:13px;
+margin:0;border:0;
+overflow:hidden;
+}
+
+a{text-decoration:none;color:blue;}
+
+.emHr{
+position:absolute;
+top:0;left:0;
+height:3px;
+border:0;
+background-color:#EEEEFE;
+}
+.emTS{
+overflow:visible;
+padding:3;
+}
+
+#tta{float:right;padding:1 2 0 2;margin-top:-2;}
+
+.emTS a{
+border:1px solid #BBB;
+padding:2 2 3 2;
+margin-left:2px;
+}
+
+.emCS{
+padding:1;
+background-color:#EEEEFE;
+border:1px solid #BBB;
+}
+
+.emCS img{
+cursor:pointer;
+border:1px solid #DDD;
+margin:1px;
+width:30px;height:30px;
+}
+
+.emPS{
+text-align:right;
+padding:4 2 4 4;
+margin:1;
+}
+.emPS a{
+border:1px solid #BBB;
+padding:3px;
+margin-left:1px;
+}
+.emMM{
+padding:3px;
+background-color:#BBBEFE;
+}

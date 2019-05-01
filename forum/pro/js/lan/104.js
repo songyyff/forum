@@ -1,0 +1,76 @@
+//	HTML		2013.02
+(function(){
+var F=/<\/?[%?!\w][^\s>]*|\r\n|\r|\n/g,
+//F=/<\/?(!--|!DOCTYPE|a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdi|bdo|big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frame|frameset|h[1-6]|head|header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|select|small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video|wbr)\b|\r\n|\r|\n/g
+B=/\r\n|[>\r\n]|\s+|=\s*/g,
+W=/\b(break|delete|if|this|while|case|do|in|throw|with|catch|else|instanceof|try|continue|finally|new|typeof|debugger|for|return|var|default|function|switch|void|true|false)\b|\x2e\s*(document|value|length|focus|innerHTML|alert|confirm|on(click|blur|mouse(over|out))|index(Of)?|lastIndex|char(Code)?At|substr(ing)?|style|(padding|margin|border)(Top|Left|Right|Buttom)?|className|name|id|src|href|title|height|width|client(Height|Width))\b|\r\n|[\r\n'"]|\/\/|\/\x2a|<\//ig,
+cS=/[-\w]*\s*:|([#.]\s*)?\w+[-_\w\d]*|<\/|\r\n|[\r\n{}'"]|\/\x2a/g,
+jd=/\\*"|<\/|\r\n|\r|\n/g,
+js=/\\*'|<\/|\r\n|\r|\n/g,
+jc=/\x2a\/|<\/|\r\n|\r|\n/g,
+jr=/<\/|\r\n|\r|\n/g,
+jn=/\r\n|[>\s\r\n]/g,
+rC=/-->|\r\n|\r|\n/g;
+
+cvLan['h']=function(o){
+var g="0iubs",I=0,
+v,n,f,i,Bi,H,z,h,r,k,c,x,t,S=o.d.value
+A(o,i=C('a'))
+A(i,e("HTML"))
+iniCtag(o)
+A(o,l=C('ol'))
+if(IE)l.style.marginLeft=40
+A(l,i=C('li'))
+
+function e(s){return t=document.createTextNode(s)}
+function T(s,t){if(t)A(i,f=C(g.charAt(t)));A(t?f:i,e(s))}
+function L(){A(l,i=C('li'));if(++I&1)i.className="il"}
+function Z(){return z=h.index+r.length}
+function pX(){if(S.substr(h.index+r.length,v.length-1).toLowerCase()==v.substr(1)){F.lastIndex=h.index;r="";return 1}}
+function Inn(W,o){H=r=='"'?jd:r=="'"?js:r=='/*'?jc:r=='//'||!W?jr:jn
+d=H==jd||H==js?4:H==jn?r='':W?1:0
+H.lastIndex=Z()
+if(W)z=h.index
+while(h=H.exec(S)){r=h[0]
+if(r=='</'&&!o){if(pX())break
+}else if("\r\n".indexOf(r)>=0){T(S.substring(z,h.index),d);Z();L();if(W&&(o?H==jn:H!=jc)){W.lastIndex=Z();break}
+}else{if(!o&&d==4&&!(r.length&1))continue;T(S.substring(z,W.lastIndex=H==jn?z=h.index:Z()),d);if(H==jn)r='';break}
+}return!r}
+function O(){if((c=S.charAt(Z()))!=' '&&c!='\t'&&c!='\r'&&c!='\n'){h.index=Z();r=c;Inn(B,1);n=k=0;if(!r)F.lastIndex=Z()}}
+
+for(k=z=0;h=F.exec(S);Z()){r=h[0]
+if(z!=h.index)T(S.substring(z,h.index))
+if("\r\n".indexOf(r)>=0)L()
+else if(r=="<!--"){
+for(rC.lastIndex=Z(),z-=r.length;h=rC.exec(S);Z()){r=h[0]
+T(S.substring(z,(d=r=="-->")?F.lastIndex=Z():h.index),1)
+if(r=='-->'){F.lastIndex=Z();break}else L()}
+}else{
+v=r.toLowerCase()
+T((d=S.charAt(Z())!='>')?r:r+='>',3)
+if(d){
+for(n=k=0,B.lastIndex=Z();h=B.exec(S);Z()){r=h[0]
+if(z!=h.index){if(n){x=n.parentNode;x.parentNode.replaceChild(n,x)}T(S.substring(z,h.index),2);n=t}
+if((c=r.charAt())=='='){if(n){n.data+=r;k=1;O()}else{T(r);n=t}
+}else if(r=='>'){T(r,3);F.lastIndex=Z();break
+}else if(c=='\r'||c=='\n'){L();if(k)O()
+}else{T(r);if(k)O()}}
+}
+if(v=="<script"){for(W.lastIndex=Z();h=W.exec(S);Z()){r=h[0]
+if(z!=h.index)T(S.substring(z,h.index))
+if("\r\n".indexOf(r)>=0)L()
+else if(r.charAt()=='.')T(r,2)
+else if(r=='"'||r=="'"||r=='/*'||r=='//'){if(Inn(W))break}
+else if(r=='</'){if(pX())break}
+else T(r,3)}
+}else if(v=="<style"){for(In=0,cS.lastIndex=Z();h=cS.exec(S);Z()){r=h[0]
+if(z!=h.index)T(S.substring(z,h.index))
+if("\r\n".indexOf(r)>=0)L()
+else if((c=r.charAt())=='{'){T(r);In++}
+else if(c=='}'){In--;T(r)}
+else if(r=='"'||r=="'"||r=='/*'){if(Inn(cS))break}
+else if(r=='</'){if(pX())break}else T(r,c=='.'?2:c=='#'?0:In?r.charAt(r.length-1)==':'?2:0:3)}
+}else if(v=="<textarea")Inn()}}
+if(z!=S.length)T(S.substr(z))}}
+
+)()

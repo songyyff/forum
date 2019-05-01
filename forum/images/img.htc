@@ -1,0 +1,5 @@
+<SCRIPT LANGUAGE=javascript>
+o=element;
+if((w=o.width)>MIW){o.title="尺寸:"+w+"."+o.height+"\n缩放:"+(MIW/w*100).toFixed(1)+"%";o.width=MIW}
+else if(w<5)o.width=5;
+</SCRIPT>

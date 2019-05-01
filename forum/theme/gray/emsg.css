@@ -1,0 +1,26 @@
+#mIcons{padding:5px;}
+#mIcons img{margin:1 1 1 0;border:1px solid #BBB;}
+#Info{
+margin:0 0 5;
+border:1px solid #BBB;
+border-top:0;
+padding:5px;
+color:#888;
+}
+
+
+.EW{padding:5px;background-color:white;border:1px inset;overflow:scroll;height:130px;}
+.EW p{margin:3px;}
+
+#con{visibility:hidden;position:absolute;top:0;}
+.AT{background-color:white;border:1px solid #BBB;padding:1px;cursor:pointer;position:absolute;top:0;left:0;}
+.AT iframe{width:300;height:436;border:0;background-color:white;overflow:hidden;}
+
+.EM{background-color:white;border:1px solid #BBB;padding:1px;cursor:pointer;position:absolute;top:0;left:0;width:200;}
+.EM img{position:absolute;margin-right:5px;visibility:hidden;}
+.EM p{margin:0;text-decoration:none;color:black;padding:5 5 5 30;border:1px solid white;border-bottom-color:#eee;}
+.EM iframe{border:0;background-color:white;overflow:hidden;}
+
+.moveBar{background-color:#BBBEFE;margin:0;padding:3;margin-top:1px;}
+
+.selt{border-bottom:2px solid red}

@@ -1,0 +1,1 @@
+<SCRIPT LANGUAGE=javascript>o=element;if(o.height/o.width>1.3){if(o.height>200)o.height=200}else if(o.width>160)o.width=160</SCRIPT>

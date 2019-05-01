@@ -1,0 +1,1 @@
+document.write("<style>#mpre{width:"+(MIW=screen.width-320)+"px;}#mpre img{margin:2 0;max-width:"+MIW+"px;behavior:url(../images/img.htc)}</style>")

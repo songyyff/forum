@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+body{
+padding:0;
+font-size:13px;
+border:0;
+margin:0;
+overflow:hidden;}
+textarea{
+font-size:13px;
+margin:0;
+padding:5;
+overflow:scroll;
+height:342;
+width:500;
+border:1 solid #CCC;
+}
+div{padding:5px;}
+select{width:100px;float:right;}
+</style>
+</head>
+<body><div><select id=ct></select>程序代码</div>
+<textarea id=X></textarea>
+<div align=right><input type=button onclick=OK() value=" 确定 "> <input type=button onclick=hide() value=" 关闭 ">
+<script language=javascript>
+P=parent
+IE=navigator.appName.indexOf("Mi")!=-1
+for(i=0,A=" 选择语言,hHTML,jJavaScript,sCSS,X其它语言".split(','),l=A.length;i<l;i++){ct.appendChild(a=document.createElement('option'))
+ct.onchange=function(){if((c=this.value)!='!'&&!P.Os[c]){P.Os[c]=1;ct.disabled=true;P.loadC(c,function(){ct.disabled=false})}}
+a.value=A[i].charAt()
+a.innerHTML=A[i].substr(1)}
+T=document.getElementById('X')
+P.codeE=function(a){if(P.editMenus.D.style.top!="-1000px"){T.value=a.d.value;ct.value=a.d.o}}
+
+function OK(){if(T.value.replace(/^\s+/g,""))
+if((c=ct.value)==' ')alert("请选择代码语言类型!")
+else if(!P.cvLan[c])alert(ct.disabled?"请稍等,代码识别程序正在装载...":"网络出现问题无法加载代码识别程序!")
+else{
+P.EW0.focus()
+
+if(IE){
+
+v=P.document.selection.createRange()
+v.move("textedit",0)
+v.select()
+for(g=v.parentElement(),z=null;g!=P.EW0;g=g.parentNode)z=g
+if(z){
+P.EW0.insertBefore(c=P.C('pre'),z)
+}else{
+P.linkc("InsertParagraph",false,"Incode")
+x=P.G('Incode')
+x.removeAttribute('id')
+x.parentNode.replaceChild(c=P.C("pre"),x)
+}
+//c.removeAttribute('Incode')
+/*
+for(g=v.parentElement(),z=null;g!=P.EW0;g=g.parentNode)z=g
+if(z){
+z.insertAdjacentElement ("beforeBegin",c=P.C('pre'))
+}else{
+v.pasteHTML("<pre id=Incode>")
+c=P.G('Incode')
+c.removeAttribute('Incode')
+}
+*/
+}else{
+v=P.getSelection().getRangeAt(0)
+for(g=(g=v.startContainer).nodeName=="#text"?g.parentNode:g,z=null;g!=P.EW0;g=g.parentNode)z=g
+if(z)g.insertBefore(c=P.C('pre'),z);else v.insertNode(c=P.C("pre"))
+}
+c.contentEditable=false
+c.innerHTML="<table width=100%><tr><td id=pcode>"
+t=P.G('pcode')
+c.C=t
+t.removeAttribute('id')
+t.className="code"
+t.d={o:ct.value,value:T.value}
+P.cvLan[ct.value](t)
+}}
+function hide(){with(P.editMenus.D.style){top=-1000;left=0}}
+
+</script>

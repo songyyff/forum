@@ -1,0 +1,21 @@
+.suv {
+border-width:3 1;
+border-style:solid;
+border-color:#f5f5f5;
+padding:0 5;
+}
+
+.suv a{float:right;}
+
+.suv p{
+border-top:1px solid #f5f5f5;
+padding:5 0;
+margin:0;
+}
+
+.suv ul{margin:0;}
+.suv li{margin:0 0 5 0}
+.suv i{
+background-color:darkgray;
+box-shadow:2px 2px 7px rgba(0,0,0,.5);
+}

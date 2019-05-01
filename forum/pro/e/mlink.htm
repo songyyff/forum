@@ -1,0 +1,55 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link rel=stylesheet type=text/css href=dlg.css></head>
+<body>
+<div id=main>
+<div id=TB></div>
+<div id=Ddiv>
+<span>链接地址：</span> <input id=add style=margin:5px;width:100%>
+</div>
+<div id=Bdiv><input type=button value=" 确定 " onclick=OK()> <input type=button value=" 关闭 " onclick=Cancel()></div>
+</div>
+</body>
+</html>
+
+<script language=javascript>
+Ddiv.style.height=100
+function C(t){return document.createElement(t)}
+function A(o,t){o.appendChild(t)}
+
+P=parent
+curM=0
+IE=navigator.appName.indexOf("Mi")!=-1
+
+for(i=0,d=["连接","邮件","图片"];i<d.length;i++){
+A(TB,t=C("a"))
+t.className="tS"
+if(!IE)t.style.marginTop=15
+A(TB,t=C("a"))
+t.className=i?"tM":"sM"
+if(!i)curM=t
+t.onclick=selM
+t.href="javascript:;"
+t.innerHTML=d[i]
+curI=t.d=i
+}
+A(TB,t=C("a"))
+t.className="tS"
+if(!IE){t.style.marginTop=15;Ddiv.style.height=Ddiv.offsetHeight-45}
+t.style.width=TB.clientWidth-t.offsetLeft-(IE?0:4)
+
+function selM(){
+if(curM==this)return false
+if(curM)curM.className="tM"
+this.className="sM"
+curM=this
+return false}
+function fixN(s){return s.length&1?"0"+s:s}
+function OK(){var i=curM.d,s=add.value.replace(/(^\s*)|(\s*$)/g,"").replace(/[\0-\x1f\x7f]/g,function(c){return "%"+fixN(c.charCodeAt(0).toString(16))})
+P.EW.focus()
+if(!s){alert("地址不能空!");add.focus()}else
+if(i==2)P.insImg(s)
+else P.linkc("CreateLink",false,(i==1?"mailto:":"")+s)
+return false
+}
+function Cancel(){P.editMenus.L.style.top=-1000;return false}
+</script>

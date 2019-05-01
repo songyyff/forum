@@ -1,0 +1,163 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<script language=javascript>
+P=parent
+D=P.document
+B=D.body
+M=P.editMenus.V
+C=P.C
+A=P.A
+G=P.G
+S=P.suvdbs
+P.getitem=function(o){A(o,o=C('li'));return o}
+//P.eval("function getitem(o){A(o,l=C('li'));return l}")
+suvedel=[]
+
+x=0
+function star(){
+X.insertBefore(x=C("div"),X.childNodes[1])
+x.innerHTML="<input type=hidden name=esuvadd><input type=hidden name=altsuv>"
+A(x,T=C('ol'))
+for(i=0,m=S.length-1;i<m;i++){
+b=S[i]
+b[10]=b.length-12>>2
+t=P.getitem(T)
+t.innerHTML="<div class=altol><input type=checkbox name=esuvt[] value="+b[0]+" onclick=esuv("+i+",this)>修改 <input type=checkbox value="+b[0]+" name=delsuv[] onclick=edelsuv(this)>删除调查</div><div>"+esuvinfo(i)+"</div>"
+d=t.firstChild.firstChild
+d.d=i
+A(t,c=C('ol'))
+for(k=11,n=b.length-1;k<n;k+=4){
+P.getitem(c).innerHTML="<input type=checkbox name=esuvci[] value="+b[k]+" onclick=esuvi("+i+","+(k-11)/4+",this)> "+b[k+2]+" - "+b[k+3]+" 票 <div>"+b[k+1]+"</div>"
+}
+A(t,c=C('div'))
+c.innerHTML="<a href=javascript:; onclick=esuvdeli("+i+",this)>删除</a><span class=altsuvr> 调查项目 </span><a href=javascript:; onclick=esuvaddi("+i+",this)>添加</a>&nbsp;"
+}
+Z=1
+z.innerHTML="[放弃修改]"
+P.checkesuv=check
+}
+
+X=M.firstChild
+z=X.firstChild.firstChild
+z.onclick=function(){
+if(Z){if(confirm("您准备放弃全部的调查修改吗")){
+x.innerHTML=""
+X.removeChild(x)
+z.innerHTML="[修改调查]"
+P.checkesuv=Z=0
+}}else star()
+}
+star()
+
+function esuvinfo(i){
+var b=S[i];
+return "建立日期:"+b[8].substr(0,10)+"; 有效期限:"+(b[6]?b[6]+" 天":"~")+"; 投票后显示:"+(b[7]&1?"是":"否")+"; 单/多选:"+(b[4]?"多, Min:"+b[4]+", Max:"+(b[5]?b[5]:"~")+"":"单")+"; 投票"+b[1]+"人次,总"+b[2]+"票.<pre>"+b[9]
+}
+
+P.esuv=function(i,o){
+b=S[i]
+o.parentNode.nextSibling.innerHTML=o.checked?"有效投票时间 <input type=text name=esuvpriod[] class=input30 value="+b[6]+"> (按天计算，0 表示无限制)<textarea rows=3 name=esuvdesc[] style=\"margin-top:3px;width:"+o.parentNode.nextSibling.offsetWidth+"px;\">"+b[9]+"</textarea><input type=checkbox name=esuvaftshow[] value="+b[0]+(b[7]&1?" checked":"")+">投票后才显示投票结果<br><input type=checkbox name=esuvmut[] onclick=esuvmut(this) value="+b[0]+((i=b[4])?" checked":"")+">多选投票 至少选择数量 <input class=input30 type=text name=eminsuv[] value="+b[4]+(i=(i?"":" disabled"))+"> 最多选择数量 <input class=input30 type=text name=emaxsuv[] value="+b[5]+i+"> "
+:esuvinfo(i)
+}
+
+P.esuvmut=function(o){
+var i=o.nextSibling.nextSibling
+if(!(i.disabled=!o.checked))i.focus()
+i.nextSibling.nextSibling.disabled=!o.checked
+}
+
+P.esuvi=function(i,n,o){
+var b=S[i],p=o.nextSibling.nextSibling
+t=o.checked
+p.innerHTML=t?"":b[n*4+12]
+if(t){
+A(p,t=C("input"))
+t.name="esuvi[]"
+t.value=b[n*4+12]
+t.style.width="100%"
+t.focus()
+}
+}
+
+v=[1,3,4,7,9,11]
+P.edelsuv=function(o){
+var Z,u,k=0,m=o.parentNode,p=m.firstChild,n=m.parentNode,o=o.checked
+if(p.checked){
+Z=n.childNodes[1].childNodes
+for(i=0,l=Z[7].checked?6:4;i<l;i++)Z[v[i]].disabled=o
+}
+p.disabled=o
+for(p=n.childNodes[2].firstChild;p;p=p.nextSibling){
+if((u=p.firstChild).checked)p.lastChild.lastChild.disabled=o
+u.disabled=o
+}
+n.lastChild.style.visibility=o?"hidden":"visible"
+}
+
+P.esuvaddi=function(i,o){
+var x
+o=o.parentNode.previousSibling
+x=P.getitem(o)
+x.innerHTML="<input name=esuvia[] onfocus=esuvifocus("+i+",this)>"
+with(x.lastChild){
+style.width="100%"
+focus()
+}
+return false
+}
+
+P.esuvifocus=function(i,o){suvedel[i]=o.parentNode}
+
+P.esuvdeli=function(i){
+var k=suvedel[i]
+suvedel[i]=0
+if(k){
+if(k.nextSibling)k.nextSibling.lastChild.focus();else if(t=k.previousSibling)t.firstChild.focus()
+k.parentNode.removeChild(k)
+}
+return false
+}
+
+function msnum(v){var x;if(x=!P.isnumber(v.value)){sc(v);alert("只能是数字!");v.focus();}return x;}
+function sc(o){P.centerWin(M,0);o.scrollIntoView(true)}
+function check(){
+var s=[],q=0,c,d,h,n,m,r,i,z,p=x.childNodes[2].firstChild,a=x.firstChild
+a.value=""
+while(p){
+q++
+i=p.firstChild.firstChild
+if(!i.disabled){
+//检测主要
+if(i.checked){
+N=p.childNodes[1].childNodes
+if(r=msnum(z=N[1]))break
+n=N[7]
+}else n=0
+//检测条目
+is=p.childNodes[2]
+i=is.firstChild
+c=d=h=0
+while(i){
+if((z=i.firstChild).type=="checkbox"){
+if(z.checked&&!i.lastChild.lastChild.value)d++
+}else if(z.value)h++;else{z=i;i=i.nextSibling;is.removeChild(z);continue}
+i=i.nextSibling
+}
+if(h)a.value+=(a.value?",":"")+S[q-1][0]+","+h
+//计算有效条目数量
+if((c=is.childNodes.length-d)<2||c>100){sc(p);alert("一个调查的有效调查条目数量只能在 2 至 100 以内。\n\n[ "+q+" ] 号调查的有效条目数量是 "+c+" 个。");r=1;break}
+if(n&&n.checked){
+if(r=msnum(n=N[9])||msnum(m=N[11]))break
+if(!(i=parseInt(n.value))){sc(p);alert("至少是 1 !");n.focus();r=1;break}
+if(i>=c){sc(p);alert("至少选择数量应该小于调查表的有效调查条目数量 "+c+" 。");n.focus();r=1;break}
+if((n=parseInt(m.value))&&(n<i||n>c)){sc(p);alert("最多选择数量应该在至少选择数量 "+i+" 和 调查表有效调查条目数量 "+c+" 之间,或者为 0 。");m.focus();r=1;break}
+}
+}
+p=p.nextSibling
+}
+
+a.disabled=a.value?0:1
+
+return r
+}
+</script>

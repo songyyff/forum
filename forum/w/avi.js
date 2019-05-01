@@ -1,0 +1,2 @@
+// 支持视频网数据文件 2014-12-08 16:23:10
+vid="<p><u>V.YOUKU.COM</u>优酷网<p><u>WWW.TUDOU.COM</u>土豆网<p><u>PLAYER.KU6.COM</u>酷6网<p><u>SHARE.VRS.SOHU.COM</u>搜狐视频<p><u>WWW.56.COM</u>56网<p><u>RESOURCES.POMOHO.COM</u>爆米花网<p><u>PLAYER.YOUKU.COM</u>优酷网"

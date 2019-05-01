@@ -1,0 +1,234 @@
+
+众言论坛Windows安装配置
+________________________________________________________________________________
+
+    众言论坛是基于Apache服务器，PHP和javascript脚本语言并以MySQL为后台数据库服务的网络论坛平台。它可以架设在Linux, Unix, Windows任何一种系统上，本文将说明众言论坛在Windows平台上的安装与配置。
+    运行众言论坛还需要Apache,Php和MySQL三个基础服务相配合。这些程序都可以在我们网站 http://www.eieusoft.com/fpro 中的下载里获得。相应版本论坛的开发和测试就是在这些版本程序的基础上做的，因此安装配置比较容易，效率也比较好。当然你也可以访问这些程序的官方网站内获得，他们的官网地址也放在了我们站点的下载里。
+
+    下面是这些程序的安装说明，如果安装过程中遇到什么问题，您可以访问我们的官方论坛 http://www.eieusoft.com/forum 查询解决办法或发表帖子获得帮助。
+________________________________________________________________________________
+
+目录：
+
+    一. 安装Apache服务器
+    二. 安装MySql数据库服务器
+    三. 安装PHP
+    四. 安装论坛程序
+    五. 论坛配置
+    六. 一个服务器上安装多个论坛
+    七. 在租用空间安装论坛
+    八. 常见问题
+        1. 上传文件的问题
+        2. php.ini在哪儿
+________________________________________________________________________________
+
+    为了管理方便，建议可以把这些程序安装在同一个目录下。如：
+    c:\web\apache安装apache，c:\web\php安装PHP，c:\web\mysql安装MYSQL，c:\web\forum安装论坛。以下安装都使用这些目录为说明。
+
+一. 安装Apache服务器
+--------------------
+    Apache服务器的安装非常简单，只需要以Typical(典型)方式安装并更改安装目录到c:\web\apache即可，下载里我们选用的版本是2.2.6版，论坛程序也是在这个版本上开发的。
+    
+    安装完成后需要打开rewrite模块。在apache配置文件c:\web\apache\conf\httpd.conf中找到下面这行。
+
+    #LoadModule rewrite_module modules/mod_rewrite.so
+
+    删掉行首符号 "#" 后保存。
+
+二. 安装MySql数据库服务器
+-------------------------
+    我们下载里的MySql版本是5.0.22，下面是安装步骤。
+
+1. Setup Type 安装类型
+    安装需要改变安装目录选择Custom(定制)方式。
+
+2. MySql.com Sign-Up 注册帐号
+    直接选取Skip Sign-UP后 Next。
+
+3. Wizard Completed 向导完成
+    Configure the MySQL Server now(现在配置这个安装好的MySql服务器)选择上后 Finish 开始配置服务器。
+
+4. Please select a configuration type. 选择设置类型
+    选择Detailed Congiguration(详细配置)后 Next。
+
+5. Please Select a server type. This will influence memory,disk and CPU usage. 选择服务器类型
+    1.Developer Machine(开发者型机器)适合非专业论坛选择，占用较少的内存。
+    2.Server Machine(服务器型机器)适合网站服务型用户，也适合公司架设论坛的选择。推荐选择这个类型。
+    3.dedicate MySQL Server machine(专业型MySQL服务型机器)整个机器都为数据库服务独占，适合大型论坛选择。
+    选择好适合您的类型后 Next。
+
+6. Please select the database usage. 选择数据库用法
+    论坛只使用 MyISAM 引擎，这三个选项可任意选择，推荐选择Non-Transactional Database Only。
+
+7. Please set the approximate number of concurrent connections to the server. 选择同时连接到数据库的大约数量
+    Decision Support(DSS)/OLAP,假设同时有20个连接；Online Transaction processing(OLTP),在线交易处理，假设数为500；Manual Setting,定制，按需求设置。
+
+8. Please set the networking options. 设置网络参数
+    必须选择Enable TCP/IP Networking,并使默认端口号3306。Enable Strict Mode最好选中。
+
+9. Please select the default character set. 设置默认字符集
+    Best Support For Multilingualism，设置使用UTF8字符集，这符合多语言使用。Manual Selected Default Character Set / Collation，设置选择适合自己的字符集。
+    由于论坛扩充了支持语言，改版成了utf8编码。所以在Manual Selected Default Character Set / Collation里请选择使用utf8字符集。
+
+10. Please set the Windows options. 为Windows系统设置参数
+    设置Windows系统，使用默认值即可。
+
+11. Please set the security options. 设置安全参数
+    Modify Security Settings,数据库管理员的默认名称为 root, New root password里设置密码，Confirm里重复确认密码，Enable root access from remote machines，是否允许管理员root远程访问数据库，如果数据库和Apache服务以及论坛程序安装在同一台机器中可不选，否则应该选中，在论坛程序安装完成后再使远程访问失效。管理员名称和密码会在后面的论坛安装中被使用。不要创建匿名用户，Create An Anonymous Account不选。
+
+12. Ready to execute ... 准备完成，可以配置
+    处理配置内容，Execute 即可完成MySql数据库安装。
+
+检测MySQL安装正确性：
+
+    数据库安装完成后，为了测试数据库是否正确安装，您可以打开程序组中的MySql菜单组执行“MySql Command Line Client”，在填写完密码后出现一段欢迎使用文字和 mysql> 输入提示符等待你您使用时就说明安装正确了。
+
+注：安装完成后最好重启一次机器。
+
+三. 安装PHP
+-----------
+    我们的下载里提供的是5.2.6版本。
+
+1. Destination Folder 目标文件夹
+    选择安装位置。
+
+2. Web Server Setup WEB服务器安装
+    我们安装使用的是2.2.6版本的Apache服务器，因此选择Apache 2.2.x Module。
+
+3. Apache Configuration Directory 指定Apache的配置文件目录
+    指定Apache服务器配置文件httpd.conf所在的目录。这通常是Apache安装目录下的conf目录。
+
+4. Choose Items to Install 选择安装内容
+    这里需要特别使用几个Extensions(扩展)，它们是 GD2、Multi-Byte String、MySQL、MySQLi 和 Sockets。对于Extras(额外)的可选装PHP Manual。
+
+5. Ready to Install 准备好了安装
+    Install开始文件安装，Finish完成安装。
+
+检测PHP安装正确性：
+
+    完成安装后，执行菜单 开始->Apache HTTP Server 2.2.6->Control Apache Server->Restart 程序使PHP在Appache中生效，并下载这个PHP脚本 http://www.eieusoft.com/fpro/download/test.zip 解压出 test.php 后存放到Apache安装目录下的 htdocs 目录内，在浏览器地址栏里输入 http://localhost/test.php 里访问这个脚本，如浏览器里只显示字符窜 Hello PHP World 就说明PHP安装正确了。
+
+四. 安装论坛程序
+----------------
+    安装完以上三个软件，并假设Apache服务器安装在 c:\web\apache。
+
+    解压缩 forum.2014.1.rar 到 C:\ 目录下，所有包文件将保存在 C:\FORUM.2014.1 内。
+
+    Windows菜单 开始->运行... 输入 cmd 确定打开命令行窗口。在窗口中输入以下命令。
+
+      1. c:
+      2. cd \FORUM.2014.1
+      3. INSTALL Rootpath Alias DBHost DBPort DBName DBUser DBPass
+          参数说明:
+            Rootpath : 论坛安装目录。需要带盘符的完整路径。如 c:\web\forum
+            Alias    : 论坛别名。如 forum。在安装完成后，
+                       论坛可以用 http://论坛主机ip地址/Alias 访问。
+                       使用不同的别名，可以在一个主机上地址上安装多个论坛。
+            DBHost   : 数据库服务器地址。如 localhost
+            DBPort   : 数据库服务器端口号。如 3306
+            DBName   : 数据库名，论坛数据库在mysql服务器中的数据库名称。如 forum
+                       特别需要注意，论坛数据库名称在数据库服务器中必须是唯一的，
+                       否则数据库安装时会删除数据库中同名数据库。造成数据丢失。
+            DBUser   : 数据库用户，可以访问论坛数据库的用户名称。如 root
+            DBPass   : 数据库用户密码。前面安装MySQL数据库服务器时为root用户设置的密码。
+      4. mkdir c:\web\forum
+         这里c:\web\forum就是命令3里的Rootpath参数。
+      5. xcopy /q /s forum c:\web\forum
+      6. cd data
+      7. mysql -u root -p --default-character-set=utf8 <forum.sql
+         mysql程序是MySQL的客户端程序，可以在MySQL的安装目录中的bin目录中找到。这里会提示输入数据库管理员root的密码。
+      8. copy forum.2014.1.conf \web\apache\conf
+      9. echo include conf\forum.2014.1.conf>>\web\apache\conf\httpd.conf
+
+    执行菜单 开始->Apache HTTP Server 2.2.6->Control Apache Server->Restart 重起Apache服务后论坛就算安装完成了。在浏览器地址栏中输入 http://localhost/forum 就可打开论坛界面。
+
+五. 论坛配置
+------------
+    使用帐号 superuser 及密码 555555 就可以超级管理员身份登陆论坛。再访问 http://localhost/forum/super/main.php 可设置论坛参数和更换您的论坛组织结构。
+    安全考虑: 请在论坛菜单 我的->我的资料 中及时更换管理员密码，并在论坛用户具有一定数量后更换管理员。
+
+    几个配置工具
+
+  1. 论坛资料设置
+     这里可以为您的论坛设置基本料资，如论坛名称，联系方式，域名地址等等。并可由这些资料生成邮件页脚，由论坛发送给用户的邮件都将包含这个页脚。
+  2. 发送邮件参数设置
+     要使论坛能够正确发送邮件，这些参数必须设置正确。
+  3. 论坛支持视频网站
+     考虑到网站的安全，我们只支持网络知名视频站点的视频。
+  4. 论坛结构管理
+     论坛结构配置工具。
+  5. 论坛表情图标管理
+     这里可以为论坛添加管理表情。
+  6. 论坛系统保留头像管理
+     管理论坛系统用户头像。
+  7. 论坛徽章管理
+     论坛徽章在这里管理。
+  8. SQL工具
+     便捷的SQL语句管理接口，除非您非常了解我们论坛的数据库结构。否则请谨慎使用此功能。
+  9. http://论坛主机IP/ALIASNAME/templates/makehelpmenujs.php
+     论坛帮助菜单结构生成工具。只有当您修改了帮助数结构才会使用到此功能。
+
+六. 一个服务器上安装多个论坛
+----------------------------
+     在论坛安装步骤中修改以下安装步骤 
+    3. 的 INSTALL 命令中使用不同的安装目录、别名、数据库名执行安装。
+    8. copy forum.2014.1.conf \web\apache\conf\forum.2014.1.2.conf
+       使用不同的配置文件名，以免覆盖上一个论坛的配置文件。
+    9. echo include conf\forum.2014.1.2.conf>>\web\apache\conf\httpd.conf
+
+    注意：论坛安装完成后一定要重新启动Apache使论坛配置生效。
+
+七. 在租用空间安装论坛
+----------------------
+    租用空间可以很廉价的架设一个网络公众论坛。
+
+    首先您需要在空间租用服务商办理如下项目：
+    1. 按需要租用虚拟主机空间，推荐为论坛租用2G以上空间。
+    2. 租用MySQL数据库空间。
+    3. 注册一个域名，把域名绑定到租用空间上。
+
+    完成以上租用后，您可以获得如下安装信息：
+    1. DBHost   数据库IP地址
+    2. DBPort   数据库端口
+    3. DBName   数据库名称
+    4. DBUser   数据库使用帐号
+    5. DBPass   数据库帐号密码
+    假设你在服务商注册帐号是mycount,那么ftp登陆后的路径应该是/mycount,这个目录下的web目录存放页面文件目录。可以在web目录下建立myforum子目录来安装论坛。那么论坛的 Rootpath 应该是 X盘:\XX目录\mycount\web\myforum，论坛别名 Alias 就是web下的子目录名 myforum。这里的 X盘:\XX目录 您需要向服务商询问获得。
+
+    使用以上信息执行论坛安装命令 1 2 3 步骤。
+
+    上传论坛程序。
+    使用ftp软件把C:\FORUM.2014.1\forum内的所有文件和目录(注意不包含forum目录)上传到空间目录web/myforum中。上传C:\FORUM.2014.1\data\httpd.ini到空间目录web中。
+
+    导入数据库。
+    在cmd命令行中执行以下命令：
+    1. c:
+    2. cd \FORUM.2014.1\data
+    3. ..\rpstring forum.sql temp.sql "DROP DATABASE" "-- DROP DATABASE"
+    4. ..\rpstring temp.sql forumdb.sql "CREATE DATABASE" "-- CREATE DATABASE"
+    使用MySQL客户端软件如MySQL-Front等软件连接到服务商为您开设的数据库上，打开C:\FORUM.2014.1\data\forumdb.sql文件执行，即可完成论坛数据库的导入。
+
+    注意，数据库导入有很多种方法，比如服务商提供的备份还原方式（具体方法您可以查阅服务商为您提供的数据库备份/还原指南)。
+
+八. 常见问题
+------------
+
+  1. 关于上传文件
+     PHP对于上传附件在php.ini中使用了下面几个参数进行配置：
+       a.允许上传附件：
+         file_uploads=On
+       b.一次上传的所有文件的总大小限制
+         post_max_size=8M
+       c.一次上传中单个文件的最大尺寸限制
+         upload_max_filesize=2M
+
+  2. php.ini在哪儿
+     WINDOWS系统中，php.ini一般在php的安装目录内。
+     或者直接使用 php --ini 命令显示配置文件php.ini所在位置。
+
+
+
+
+著传软件(C) 2007-2014
+众言论坛开发组 2014-12-08 16:22:14
+Email:forumteam@eieusoft.com

@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<style>
+body{
+font-size:13px;
+padding:0;
+border:0;
+margin:0;
+overflow:hidden;
+}
+</style>
+<body>
+</body>
+</html>
+<script language=javascript>
+P=parent
+i=P.cPlay
+P.cPlay=0
+a=i.d
+function getFlvurl(){me.setFlvurl(i.title)}
+document.body.innerHTML=a=='+'||a=='A'?"<object id=me classid=clsid:d27cdb6e-ae6d-11cf-96b8-444553540000 width=480 height=400><param name=allowScriptAccess value=sameDomain><param name=movie value=\""+(a=='A'?"../../images/player.3.0.swf":i.title.replace(/"/g,"%22"))+"\"><param name=allowFullScreen value=true>":
+(a=='b'?"<audio":"<video")+" src=\""+i.title.replace(/"/g,"%22")+"\" controls=controls width=480 height=400><tt>抱歉，您的浏览器不支持HTML播放器。"
+</script>
