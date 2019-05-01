@@ -1,10 +1,10 @@
 # forum
 a samplest forum. have rich edit input, safe, hello word.
-##众言论坛
+## 众言论坛
 
 众言论坛是基于Apache服务器，PHP和javascript脚本语言并以MySQL为后台数据库服务的网络论坛平台。它可以架设在Linux, Unix, Windows任何一种系统上。论坛运行还需要Apache,Php和MySQL三个基础服务相配合。
 
-#合适的使用范围
+# 合适的使用范围
 论坛采用积木式设计结构，具有不同功能的组合模块，使用范围广泛，可方便的作为以下目的使用：
 
 1.建设网络论坛
@@ -20,7 +20,7 @@ a samplest forum. have rich edit input, safe, hello word.
 
 论坛可以放置在租用空间中，也可以放在社区自己的服务器内。
 
-#论坛特点
+# 论坛特点
 在系统设计上，论坛有如下特点：
 
 1.便捷的安装
